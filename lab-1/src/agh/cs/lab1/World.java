@@ -2,7 +2,6 @@ package agh.cs.lab1;
 
 import java.util.Scanner;
 
-
 public class World {
 
 //    static void run(String str){
