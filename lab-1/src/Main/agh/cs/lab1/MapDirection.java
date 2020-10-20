@@ -1,6 +1,6 @@
 package agh.cs.lab1;
 
-public enum MapDirection {
+public enum MapDirection{
     NORTH, SOUTH, WEST, EAST;
 
     public String tostring() {
@@ -16,29 +16,29 @@ public enum MapDirection {
         }
         return null;
     }
-    public String next(){
+    public MapDirection next(){
         switch (this) {
             case NORTH:
-                return "Wschod";
+                return EAST;
             case SOUTH:
-                return "Zachod";
+                return WEST;
             case WEST:
-                return "Polnoc";
+                return NORTH;
             case EAST:
-                return "Poludnie";
+                return SOUTH;
         }
         return null;
     }
-    public String previous(){
+    public MapDirection previous(){
         switch (this) {
             case NORTH:
-                return "Zachod";
+                return WEST;
             case SOUTH:
-                return "Wschod";
+                return EAST;
             case WEST:
-                return "Poludnie";
+                return SOUTH;
             case EAST:
-                return "Polnoc";
+                return NORTH;
         }
         return null;
     }
