@@ -7,9 +7,11 @@ public class Vector2d {
         this.x = x;
         this.y = y;
     }
-    public void ToString(){
-        System.out.println("("+x+","+y+")");
+
+    public String toString(){
+        return "("+this.x+","+this.y+")";
     }
+
     public boolean precedes(Vector2d other){
         if( other.x <= this.x){
             if(other.y <= this.y){
