@@ -25,8 +25,8 @@ public class MapDirectionTest{
     }
     @Test
     public void nextWest(){
-        MapDirection dir = MapDirection.WEST;
-        assertEquals(dir.next(), MapDirection.NORTH);
+        MapDirection d = MapDirection.WEST;
+        assertEquals(d.next(), MapDirection.NORTH);
     }
 
 
@@ -49,8 +49,8 @@ public class MapDirectionTest{
     }
     @Test
     public void prevWest(){
-        MapDirection dir = MapDirection.WEST;
-        assertEquals(dir.previous(), MapDirection.SOUTH);
+        MapDirection d = MapDirection.WEST;
+        assertEquals(d.previous(), MapDirection.SOUTH);
     }
 
 
