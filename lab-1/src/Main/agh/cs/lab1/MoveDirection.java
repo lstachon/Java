@@ -1,7 +1,7 @@
 package agh.cs.lab1;
 
 public enum MoveDirection {
-        Forward,
+        Forward,        // stałe piszemy wielkimi literami
         Backward,
         Left,
         Right

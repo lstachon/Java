@@ -15,7 +15,7 @@ public class Vector2dTest {
         assertEquals(v1.toString(),"(1,1)");
     }
     @Test
-    public void precedes(){
+    public void precedes(){ // ubogie testy
         Vector2d v = new Vector2d(1,1);
         Vector2d v2 = new Vector2d(1,2);
         assertEquals(v.precedes(v2), false);
@@ -50,7 +50,7 @@ public class Vector2dTest {
     }
 
     @Test
-    public void substract(){
+    public void substract(){    // subtract, nie substract
         Vector2d v = new Vector2d(1,1);
         Vector2d v2 = new Vector2d(1,2);
         assertEquals(v.subtract(v2), new Vector2d(0,-1));

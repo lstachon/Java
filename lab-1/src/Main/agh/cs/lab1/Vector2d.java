@@ -1,7 +1,7 @@
 package agh.cs.lab1;
 
 public class Vector2d {
-    private int x;
+    private int x;  // x i y miały być publiczne i finalne
     private int y;
     public Vector2d(int x, int y){
         this.x = x;
