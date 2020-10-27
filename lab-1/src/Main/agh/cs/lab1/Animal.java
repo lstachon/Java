@@ -27,13 +27,10 @@ public class Animal {
                 break;
 
             case BACKWARD:
-                MapDirection temp = this.direction;
-                temp = temp.next();
-                temp = temp.next();
-                Vector2d newVector1 = temp.toUnitVector();
-                Vector2d check1 = this.position.add(newVector1);
+                Vector2d newVector1 = this.direction.toUnitVector();
+                Vector2d check1 = this.position.subtract(newVector1);
                 if(check1.x >= 0 && check1.y >=0 && check1.x<=4 && check1.y<=4) {
-                    this.position = this.position.add(newVector1);
+                    this.position = this.position.subtract(newVector1);
                 }
                 break;
         }
