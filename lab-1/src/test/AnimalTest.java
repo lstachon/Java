@@ -30,6 +30,18 @@ public class AnimalTest {
         assertEquals(a1.toString(), "(1,1) SOUTH");
     }
 
+    @Test
+    public void Test4(){
+        Animal a1 = new Animal();
+        a1.move(MoveDirection.RIGHT);
+        a1.move(MoveDirection.FORWARD);
+        a1.move(MoveDirection.RIGHT);
+        a1.move(MoveDirection.FORWARD);
+        a1.move(MoveDirection.RIGHT);
+        a1.move(MoveDirection.FORWARD);
+        assertEquals(a1.toString(), "(2,1) WEST");
+    }
+
 
     @Test
     public void Test5(){
