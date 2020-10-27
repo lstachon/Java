@@ -4,6 +4,7 @@ public class Animal {
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
 
+    @Override
     public String toString(){
         return this.position.toString()+" "+this.direction;
     }
