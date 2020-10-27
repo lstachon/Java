@@ -44,12 +44,22 @@ public class World {
     public static void main(String[] args){
     System.out.println("start");
 
-//manualne testy MapDirection
-    System.out.println(MapDirection.NORTH.next());
-    System.out.println(MapDirection.SOUTH.previous());
-    System.out.println(MapDirection.EAST.toUnitVector());
-    System.out.println(MapDirection.WEST.tostring());
+    Animal a1 = new Animal();
 
+    System.out.println(a1.toString());
+    a1.move(MoveDirection.RIGHT);
+    a1.move(MoveDirection.FORWARD);
+    a1.move(MoveDirection.FORWARD);
+    a1.move(MoveDirection.FORWARD);
+    System.out.println(a1.toString());
+
+
+//manualne testy MapDirection
+//    System.out.println(MapDirection.NORTH.next());
+//    System.out.println(MapDirection.SOUTH.previous());
+//    System.out.println(MapDirection.EAST.toUnitVector());
+//    System.out.println(MapDirection.WEST.tostring());
+//
 
 
 
