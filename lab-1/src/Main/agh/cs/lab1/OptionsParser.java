@@ -2,7 +2,7 @@ package agh.cs.lab1;
 import java.util.Arrays;
 public class OptionsParser {
 
-    public MoveDirection[] parse(String[] S){
+    public static MoveDirection[] parse(String[] S){
         int size = 0;
         for (int i = 0; i < S.length; i++) {
             if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backwards")

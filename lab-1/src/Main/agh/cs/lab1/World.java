@@ -1,5 +1,5 @@
 package agh.cs.lab1;
-
+import java.util.Scanner;
 public class World {
 
 //    static void run(String str){
@@ -43,16 +43,12 @@ public class World {
 
     public static void main(String[] args){
     System.out.println("start");
-
     Animal a1 = new Animal();
-
-    System.out.println(a1.toString());
-    a1.move(MoveDirection.RIGHT);
-    a1.move(MoveDirection.FORWARD);
-    a1.move(MoveDirection.FORWARD);
-    a1.move(MoveDirection.FORWARD);
-    System.out.println(a1.toString());
-
+    System.out.println(a1);
+    for (MoveDirection d: OptionsParser.parse(args)){
+        a1.move(d);
+        System.out.println(a1);
+    }
 
 //manualne testy MapDirection
 //    System.out.println(MapDirection.NORTH.next());
