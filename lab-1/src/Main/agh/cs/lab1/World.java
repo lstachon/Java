@@ -44,11 +44,15 @@ public class World {
     public static void main(String[] args){
     System.out.println("start");
     Animal a1 = new Animal();
-    System.out.println(a1);
     for (MoveDirection d: OptionsParser.parse(args)){
         a1.move(d);
         System.out.println(a1);
     }
+//Odpowiedz na pytanie: jak zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu.:
+        //najproszym sposobem jest stworzyć tablicę kwadratową 5 na 5 boolean gdzie True oznacza zwierzę a False brak zwierzęcia
+        //żeby sprawdzić czy ruch jest możliwy sprawdzamy czy pole na które chcemy sie ruszyć jest False
+        //jeśli tak to możemy sie na nie ruszyć, odznaczyć pole na którym się znajdowaliśmy na False oraz oznaczyć pole na którym się znaleźliśmy - True
+
 
 //manualne testy MapDirection
 //    System.out.println(MapDirection.NORTH.next());
