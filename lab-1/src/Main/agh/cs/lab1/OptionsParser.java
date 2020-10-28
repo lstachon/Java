@@ -2,12 +2,12 @@ package agh.cs.lab1;
 import java.util.Arrays;
 public class OptionsParser {
 
-    public static MoveDirection[] parse(String[] S){
+    public static MoveDirection[] parse(String[] S){    // nazwy zmiennych piszemy camelCasem
         int size = 0;
         for (int i = 0; i < S.length; i++) {
             if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backward")
                     || S[i].equals("l") || S[i].equals("left") || S[i].equals("r") || S[i].equals("right")) {
-                size = size + 1;
+                size = size + 1;    // size++
             }
         }
 
@@ -16,7 +16,7 @@ public class OptionsParser {
         for (int i = 0; i < S.length; i++) {
             switch (S[i]) {
                 case "f":
-                    result[j] = MoveDirection.FORWARD;
+                    result[j] = MoveDirection.FORWARD;  // można pisać result[j++]
                     j++;
                     break;
 

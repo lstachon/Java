@@ -20,9 +20,9 @@ public class Animal {
                 break;
 
             case FORWARD:
-                Vector2d newVector = this.direction.toUnitVector();
+                Vector2d newVector = this.direction.toUnitVector(); // słabe nazwy; co jest nowego w newVector?
                 Vector2d check = this.position.add(newVector);
-                if(check.x > 0 && check.y >0 && check.x<=4 && check.y<=4) {
+                if(check.x > 0 && check.y >0 && check.x<=4 && check.y<=4) { // po co Pan pisał Vector2d.precedes?
                     this.position = this.position.add(newVector);
                 }
                 break;
