@@ -4,11 +4,10 @@ public class Animal {
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
     private IWorldMap map;
-    private Vector2d startPosition;
 
     public void Animal(IWorldMap map, Vector2d initialPosition){
         this.map = map;
-        this.startPosition = initialPosition;
+        this.position = initialPosition;
     }
 
     public Vector2d getPosition(){
@@ -41,22 +40,19 @@ public class Animal {
                 break;
 
             case FORWARD:
-                if(this.map.canMoveTo(position)) {
                     Vector2d newVector = this.direction.toUnitVector();
                     Vector2d check = this.position.add(newVector);
-                    if (check.x > 0 && check.y > 0 && check.x <= 4 && check.y <= 4) {
+                    if (this.map.canMoveTo(position.add(newVector)) && !this.map.isOccupied(position.add(newVector))){
                         this.position = this.position.add(newVector);
                     }
-                }
                 break;
 
             case BACKWARD:
-                if(this.map.canMoveTo(position)) {
                 Vector2d newVector1 = this.direction.toUnitVector();
                 Vector2d check1 = this.position.subtract(newVector1);
-                if(check1.x >= 0 && check1.y >=0 && check1.x<=4 && check1.y<=4) {
+                if(this.map.canMoveTo(position.subtract(newVector1)) && !this.map.isOccupied(position.subtract(newVector1))) {
                     this.position = this.position.subtract(newVector1);
-                }}
+                }
 
                 break;
         }
