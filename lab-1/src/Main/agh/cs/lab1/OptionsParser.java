@@ -14,6 +14,7 @@ public class OptionsParser {
         MoveDirection result[] = new MoveDirection[size];
         int j = 0;
         for (int i = 0; i < S.length; i++) {
+
             switch (S[i]) {
                 case "f":
                     result[j] = MoveDirection.FORWARD;

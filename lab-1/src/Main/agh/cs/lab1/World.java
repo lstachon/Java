@@ -42,12 +42,21 @@ public class World {
     }
 
     public static void main(String[] args){
-    System.out.println("start");
-    Animal a1 = new Animal();
-    for (MoveDirection d: OptionsParser.parse(args)){
-        a1.move(d);
-        System.out.println(a1);
-    }
+        System.out.println("start");
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        System.out.println(map.toString());
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        System.out.println(map.toString());
+        engine.run();
+        System.out.println(map.toString());
+
+//    Animal a1 = new Animal();
+//    for (MoveDirection d: OptionsParser.parse(args)){
+//        a1.move(d);
+//        System.out.println(a1);
+//    }
 //Odpowiedz na pytanie: jak zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu.:
         //najproszym sposobem jest stworzyć tablicę kwadratową 5 na 5 boolean gdzie True oznacza zwierzę a False brak zwierzęcia
         //żeby sprawdzić czy ruch jest możliwy sprawdzamy czy pole na które chcemy sie ruszyć jest False

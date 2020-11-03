@@ -10,12 +10,19 @@ public class RectangularMap implements IWorldMap {
 
     public RectangularMap(int width, int height) {
         if (width > 0 && height > 0) {
-            ArrayList<Animal> animals = new ArrayList<Animal>();
+            animals = new ArrayList<Animal>();
             this.height = height;
             this.width = width;
         }
     }
 
+    public String toString(){
+        Vector2d v1 = new Vector2d(0,0);
+        Vector2d v2 = new Vector2d(width,height);
+    MapVisualizer map = new MapVisualizer(this);
+    return map.draw(v1,v2);
+
+    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -27,18 +34,26 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition()) && isOccupied(animal.getPosition())) {
-            animals.add(animal);
-        }
+//        if(this.animals == null){
+//            if (canMoveTo(animal.getPosition())){
+//                this.animals.add(animal);
+//            }
+//        }
+        if(animals != null){
+        if (canMoveTo(animal.getPosition()) && !isOccupied(animal.getPosition())){
+            this.animals.add(animal);
+            return true;
+        }}
 
         return false;
     }
 
     @Override
     public void run(MoveDirection[] directions) {
+        if(animals!=null){
         for (int i = 0; i < directions.length; i++) {
             this.animals.get(i % animals.size()).move(directions[i]);
-        }
+        }}
     }
 
     @Override

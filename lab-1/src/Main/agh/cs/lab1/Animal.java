@@ -5,7 +5,7 @@ public class Animal {
     private Vector2d position = new Vector2d(2,2);
     private IWorldMap map;
 
-    public void Animal(IWorldMap map, Vector2d initialPosition){
+    public Animal(IWorldMap map, Vector2d initialPosition){
         this.map = map;
         this.position = initialPosition;
     }
