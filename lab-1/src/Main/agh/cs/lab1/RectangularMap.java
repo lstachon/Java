@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class RectangularMap implements IWorldMap {
-    private ArrayList<Animal> animals;
+    private ArrayList<Animal> animals;  // może być finalna
     private int width;
     private int height;
 
@@ -17,8 +17,8 @@ public class RectangularMap implements IWorldMap {
     }
 
     public String toString(){
-        Vector2d v1 = new Vector2d(0,0);
-        Vector2d v2 = new Vector2d(width,height);
+        Vector2d v1 = new Vector2d(0,0);    // te wektory w każdym wywołaniu są takie same
+        Vector2d v2 = new Vector2d(width,height);   // width - 1
     MapVisualizer map = new MapVisualizer(this);
     return map.draw(v1,v2);
 
@@ -26,7 +26,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if (position.x <=this.width && position.x >= 0 && position.y >= 0 && position.y <=this.height) {
+        if (position.x <=this.width && position.x >= 0 && position.y >= 0 && position.y <=this.height) {    // lepiej operować na poziomie wektorów
             return true;
         }
         return false;
@@ -61,7 +61,7 @@ public class RectangularMap implements IWorldMap {
     }
 
     @Override
-    public Object objectAt(Vector2d position) {
+    public Object objectAt(Vector2d position) { // bardzo podobna do isOccupied
         for (int i = 0; i < this.animals.size(); i++) {
             if (position.equals(this.animals.get(i).getPosition())) {
                 return this.animals.get(i);
