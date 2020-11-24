@@ -13,6 +13,7 @@ public class GrassField extends AbstractWorldMap {
     private int size;
 
     public GrassField(int grass_a) {
+        super();
         this.grass_amount = grass_a;
         double wrap = Math.sqrt(grass_amount * 10);
         int n = (int) wrap;
@@ -26,8 +27,9 @@ public class GrassField extends AbstractWorldMap {
         }
     }
 
-    public String toString() {
-        int max_x = 0, max_y = 0, min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
+    @Override
+    public Vector2d getLowerLeft(){
+      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
         for (Animal a : this.animalList) {
             for (Grass g : this.grassList) {
                 if (g.getPosition().equals(a.getPosition())) {
@@ -37,19 +39,36 @@ public class GrassField extends AbstractWorldMap {
             }
         }
         for (Grass g : this.grassList) {
-            if (g.getPosition().x > max_x) {
-                max_x = g.getPosition().x;
-            }
-            if (g.getPosition().y > max_y) {
-                max_y = g.getPosition().y;
-            }
             if (g.getPosition().x < min_x) {
                 min_x = g.getPosition().x;
             }
             if (g.getPosition().y < min_y) {
                 min_y = g.getPosition().y;
             }
+        }
+        for (Animal a : this.animalList) {
+            if (a.getPosition().x < min_x) {
+                min_x = a.getPosition().x;
+            }
+            if (a.getPosition().y < min_y) {
+                min_y = a.getPosition().y;
+            }
+        }
+    return new Vector2d(min_x, min_y);
+    }
 
+
+    @Override
+    public Vector2d getUpperRight(){
+        int max_x = 0, max_y = 0;
+
+        for (Grass g : this.grassList) {
+            if (g.getPosition().x > max_x) {
+                max_x = g.getPosition().x;
+            }
+            if (g.getPosition().y > max_y) {
+                max_y = g.getPosition().y;
+            }
         }
 
         for (Animal a : this.animalList) {
@@ -59,16 +78,11 @@ public class GrassField extends AbstractWorldMap {
             if (a.getPosition().y > max_y) {
                 max_y = a.getPosition().y;
             }
-            if (a.getPosition().x < min_x) {
-                min_x = a.getPosition().x;
-            }
-            if (a.getPosition().y < min_y) {
-                min_y = a.getPosition().y;
-            }
         }
-        MapVisualizer map = new MapVisualizer(this);
-        return map.draw(new Vector2d(min_x, min_y), new Vector2d(max_x, max_y));
+
+        return new Vector2d(max_x, max_y);
     }
+
 
     @Override
     public boolean canMoveTo(Vector2d position) {

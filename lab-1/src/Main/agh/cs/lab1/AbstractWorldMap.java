@@ -1,11 +1,18 @@
 package agh.cs.lab1;
 
+import java.nio.MappedByteBuffer;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap {
 
     protected List<Animal> animalList = new ArrayList<>();
+    final MapVisualizer map;
+    public  AbstractWorldMap(){
+        MapVisualizer map = new MapVisualizer(this);
+        this.map = map;
+    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -21,6 +28,16 @@ public class AbstractWorldMap implements IWorldMap {
         return true;
     }
 
+    @Override
+    public String toString() {
+        Vector2d lowerLeft = getLowerLeft();
+        Vector2d upperRight = getUpperRight();
+        return map.draw(lowerLeft, upperRight);
+    }
+
+    public abstract Vector2d getLowerLeft();
+
+    public abstract Vector2d getUpperRight();
 
     @Override
     public boolean place(Animal animal) {

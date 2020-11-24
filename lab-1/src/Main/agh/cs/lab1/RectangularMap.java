@@ -10,19 +10,32 @@ public class RectangularMap extends AbstractWorldMap {
 
 
     public RectangularMap(int width, int height){
+        super();
         if (width > 0 && height > 0) {
             this.height = height;
             this.width = width;
         }
     }
 
-    public String toString(){
-        Vector2d v1 = new Vector2d(0,0);
-        Vector2d v2 = new Vector2d(width,height);
-        MapVisualizer map = new MapVisualizer(this);
-        return map.draw(v1,v2);
 
+
+//    public String toString(){
+////        Vector2d v1 = new Vector2d(0,0);
+////        Vector2d v2 = new Vector2d(width,height);
+////        MapVisualizer map = new MapVisualizer(this);
+////        return map.draw(v1,v2);
+//    }
+
+    @Override
+    public Vector2d getLowerLeft(){
+        return new Vector2d(0,0);
     }
+
+    @Override
+    public Vector2d getUpperRight(){
+        return (new Vector2d(this.width, this.height));
+    }
+
 
     @Override
     public boolean canMoveTo(Vector2d position) {
