@@ -28,9 +28,10 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         if(position.x < 0 || position.y <0){
         return false;
         }
-            if(animalsMap.containsKey(position)){
-                return false;
-            }
+
+        if(animalsMap.containsKey(position)){
+            return false;
+        }
 
         return true;
     }

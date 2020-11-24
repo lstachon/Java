@@ -3,13 +3,13 @@ import agh.cs.lab1.*;
 import org.junit.Test;
 import org.junit.Assert;
 import java.util.HashMap;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotSame;
+
+import static junit.framework.TestCase.*;
 
 public class NewRectangularMapTest {
 
     @Test
-    public  void map(){
+    public  void mapTest(){
         IWorldMap map = new RectangularMap(5,10);
         Animal a1 = new Animal(map,new Vector2d(2,2));
         Animal a2 = new Animal(map,new Vector2d(6,10));
@@ -54,7 +54,7 @@ public class NewRectangularMapTest {
     }
 
     @Test
-    public void ObjectAt(){
+    public void ObjAtTest(){
         IWorldMap map = new RectangularMap(10,10);
         Animal a1 = new Animal(map, new Vector2d(4,3));
         Animal a2 = new Animal(map, new Vector2d(3,4));
@@ -70,6 +70,22 @@ public class NewRectangularMapTest {
         assertNotSame(a2,map.objectAt(new Vector2d(4,3)));
         assertEquals(a3, map.objectAt(new Vector2d(5,5)));
         assertNotSame(a4,map.objectAt(new Vector2d(4,3)));
+    }
+
+    @Test
+    public void CMTTest(){
+        IWorldMap map = new RectangularMap(10,10);
+        Animal a1 = new Animal(map, new Vector2d(4,3));
+        Animal a2 = new Animal(map, new Vector2d(3,4));
+
+        map.place(a1);
+        map.place(a2);
+
+        assertEquals(map.canMoveTo(new Vector2d(-1,0)),false);
+        assertEquals(map.canMoveTo(new Vector2d(0,-1)),false);
+        assertEquals(map.canMoveTo(new Vector2d(4,3)),false);
+        assertEquals(map.canMoveTo(new Vector2d(3,4)),false);
+        assertEquals(map.canMoveTo(new Vector2d(5,5)),true);
     }
 
 

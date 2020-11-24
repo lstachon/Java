@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.List;
 public class Animal {
     private MapDirection direction = MapDirection.NORTH;
-    private Vector2d position = new Vector2d(2,2);
+    private Vector2d position;
     final IWorldMap map;
+
     List<IPositionChangeObserver> observers;
 
     public Animal(IWorldMap map, Vector2d initialPosition){

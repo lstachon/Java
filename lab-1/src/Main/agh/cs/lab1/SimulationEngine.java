@@ -21,12 +21,19 @@ public class SimulationEngine implements IEngine {
     public void run() {
         if(animals.size() > 0) {
             int i = 0;
+            for(Animal a:this.animals){
+                a.addObserver((IPositionChangeObserver) this.map);
+            }
             for (MoveDirection direction : directions) {
-
-                Animal animal = animals.get(i);
-                animal.move(direction);
+                Animal a = animals.get(i);
+                Vector2d prev = a.getPosition();
+                a.move(direction);
+                a.positionChanged(prev,a.getPosition());
                 i++;
                 i = i % animals.size();
+            }
+            for(Animal a: this.animals){
+                a.removeObserver((IPositionChangeObserver) this.map);
             }
         }
     }
