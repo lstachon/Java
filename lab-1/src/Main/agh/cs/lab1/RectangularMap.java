@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class RectangularMap extends AbstractWorldMap {
-    private ArrayList<Animal> animals;
+
     private int width;
     private int height;
 
@@ -51,11 +51,6 @@ public class RectangularMap extends AbstractWorldMap {
             return false;
         }
         return super.place(animal);
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        super.run(directions);
     }
 
     @Override

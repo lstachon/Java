@@ -26,7 +26,6 @@ public interface IWorldMap {
      * @param directions
      *            Array of move directions.
      */
-    void run(MoveDirection[] directions);
 
     /**
      * Return true if given position on the map is occupied. Should not be

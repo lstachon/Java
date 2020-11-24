@@ -1,13 +1,15 @@
 package agh.cs.lab1;
 
 import java.nio.MappedByteBuffer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 abstract class AbstractWorldMap implements IWorldMap {
 
-    protected List<Animal> animalList = new ArrayList<>();
+//    protected List<Animal> animalList = new ArrayList<>();
+    protected HashMap<Vector2d, Animal> animalsMap = new HashMap<>();
     final MapVisualizer map;
     public  AbstractWorldMap(){
         MapVisualizer map = new MapVisualizer(this);
@@ -19,12 +21,10 @@ abstract class AbstractWorldMap implements IWorldMap {
         if(position.x < 0 || position.y <0){
         return false;
         }
-
-        for(Animal a: this.animalList){
-            if(a.getPosition().equals(position)){
+            if(animalsMap.containsKey(position)){
                 return false;
             }
-        }
+
         return true;
     }
 
@@ -41,51 +41,28 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean place(Animal animal) {
-        if(animalList == null && animal != null){
-            this.animalList.add(animal);
+        if(isOccupied(animal.getPosition())){
+            return false;
         }
-        if(animalList != null) {
-            if (animal.getPosition().x < 0 || animal.getPosition().y < 0) {
-                return false;
-            }
-            for (Animal a : this.animalList) {
-                if (a.getPosition().equals(animal.getPosition())) {
-                    return false;
-                }
-            }
-            this.animalList.add(animal);
-            return true;
+        if (animal.getPosition().x < 0 || animal.getPosition().y < 0) {
+            return false;
         }
-        return false;
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        if(animalList!=null){
-            for (int i = 0; i < directions.length; i++) {
-                this.animalList.get(i % animalList.size()).move(directions[i]);
-            }}
+        animalsMap.put(animal.getPosition(), animal);
+        return true;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        if(animalList != null){
-        for(Animal a:this.animalList){
-            if(a.getPosition().equals(position)){
-                return true;
-            }
-        }
+        if(animalsMap.containsKey(position)){
             return false;
         }
-        return false;
+        return true;
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        for(Animal a: this.animalList){
-            if(a.getPosition().equals(position)){
-                return a;
-            }
+        if(animalsMap.containsKey(position)){
+            return animalsMap.get(position);
         }
         return null;
     }

@@ -1,5 +1,9 @@
 package agh.cs.lab1;
 
+import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.Objects;
+
 public class Vector2d {
     final int x;
     final int y;
@@ -7,6 +11,12 @@ public class Vector2d {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
+
 
     public String toString(){
         return "("+this.x+","+this.y+")";
@@ -48,9 +58,8 @@ public class Vector2d {
         return new Vector2d(this.x- other.x, this.y-other.y);
     }
 
+    @Override
     public boolean equals(Object other){
-        if (this == other)
-            return true;
         if (!(other instanceof Vector2d))
             return false;
         Vector2d that = (Vector2d) other;
