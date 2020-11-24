@@ -31,6 +31,11 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        super.positionChanged(oldPosition, newPosition);
+    }
+
+    @Override
     public Vector2d getLowerLeft(){
       int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
         for (Animal a : this.animalsMap.values()) {

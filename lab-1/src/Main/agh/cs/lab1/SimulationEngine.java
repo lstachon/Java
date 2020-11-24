@@ -2,7 +2,9 @@ package agh.cs.lab1;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class SimulationEngine implements IEngine {
+
     private MoveDirection[] directions;
     private IWorldMap map;
     private List<Animal> animals = new ArrayList<>();
@@ -17,13 +19,16 @@ public class SimulationEngine implements IEngine {
     }
     @Override
     public void run() {
-        int n = this.directions.length;
-        int k = this.animals.size();
-        Animal a;
-        for(int i=0; i<n; i++){
-            a = this.animals.get(i%k);
-            a.move(this.directions[i]);
+        if(animals.size() > 0) {
+            int i = 0;
+            for (MoveDirection direction : directions) {
+
+                Animal animal = animals.get(i);
+                animal.move(direction);
+                i++;
+                i = i % animals.size();
+            }
         }
-        System.out.println(this.map.toString());
     }
 }
+

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
 //    protected List<Animal> animalList = new ArrayList<>();
     protected HashMap<Vector2d, Animal> animalsMap = new HashMap<>();
@@ -14,6 +14,13 @@ abstract class AbstractWorldMap implements IWorldMap {
     public  AbstractWorldMap(){
         MapVisualizer map = new MapVisualizer(this);
         this.map = map;
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal a = this.animalsMap.get(oldPosition);
+        this.animalsMap.remove(oldPosition);
+        this.animalsMap.put(newPosition, a);
     }
 
     @Override
@@ -54,9 +61,9 @@ abstract class AbstractWorldMap implements IWorldMap {
     @Override
     public boolean isOccupied(Vector2d position) {
         if(animalsMap.containsKey(position)){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

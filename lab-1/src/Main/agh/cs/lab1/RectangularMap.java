@@ -16,7 +16,10 @@ public class RectangularMap extends AbstractWorldMap {
             this.width = width;
         }
     }
-
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+         super.positionChanged(oldPosition, newPosition);
+    }
 
 
 //    public String toString(){
