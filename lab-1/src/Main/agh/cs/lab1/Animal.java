@@ -3,7 +3,7 @@ package agh.cs.lab1;
 public class Animal {
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
-    private IWorldMap map;
+    final IWorldMap map;
 
     public Animal(IWorldMap map, Vector2d initialPosition){
         this.map = map;
@@ -26,7 +26,7 @@ public class Animal {
             case SOUTH:
                 return "S";
         };
-        return "error";
+        return null;
     }
 
     public void move(MoveDirection direction){
@@ -41,7 +41,6 @@ public class Animal {
 
             case FORWARD:
                     Vector2d newVector = this.direction.toUnitVector();
-                    Vector2d check = this.position.add(newVector);
                     if (this.map.canMoveTo(position.add(newVector)) && !this.map.isOccupied(position.add(newVector))){
                         this.position = this.position.add(newVector);
                     }
@@ -49,7 +48,6 @@ public class Animal {
 
             case BACKWARD:
                 Vector2d newVector1 = this.direction.toUnitVector();
-                Vector2d check1 = this.position.subtract(newVector1);
                 if(this.map.canMoveTo(position.subtract(newVector1)) && !this.map.isOccupied(position.subtract(newVector1))) {
                     this.position = this.position.subtract(newVector1);
                 }

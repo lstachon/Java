@@ -7,7 +7,7 @@ public class OptionsParser {
         for (int i = 0; i < S.length; i++) {
             if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backward")
                     || S[i].equals("l") || S[i].equals("left") || S[i].equals("r") || S[i].equals("right")) {
-                size = size + 1;
+                size++;
             }
         }
 
