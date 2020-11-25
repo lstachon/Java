@@ -3,7 +3,7 @@ package agh.cs.lab1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine implements IEngine {  // gdzie SimulationEngine jest testowany?
 
     private MoveDirection[] directions;
     private IWorldMap map;
@@ -18,7 +18,7 @@ public class SimulationEngine implements IEngine {
 
     }
     @Override
-    public void run() {
+    public void run() { // Single Responsibility Principle
         if(animals.size() > 0) {
             int i = 0;
             for(Animal a:this.animals){

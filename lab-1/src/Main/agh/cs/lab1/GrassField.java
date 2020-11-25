@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class GrassField extends AbstractWorldMap {
 
     final int grass_amount;
-    final HashMap<Vector2d, Grass> grassMap = new HashMap<>();
+    final HashMap<Vector2d, Grass> grassMap = new HashMap<>();  // to powinno być prywatne
     final int size;
 
     public GrassField(int grass_a) {
@@ -37,7 +37,7 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getLowerLeft(){
-      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
+      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;    // lepiej operować na całych wektorach
         for (Animal a : this.animalsMap.values()) {
             for (Grass g : this.grassMap.values()) {
                 if (g.getPosition().equals(a.getPosition())) {
@@ -93,7 +93,7 @@ public class GrassField extends AbstractWorldMap {
 
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
+    public boolean canMoveTo(Vector2d position) {   // nie ma sensu przesłaniać metody, jeśli zamierza Pan tylko wywołać wersję odziedziczoną
         return super.canMoveTo(position);
     }
 

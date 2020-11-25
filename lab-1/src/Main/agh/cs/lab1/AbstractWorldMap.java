@@ -9,11 +9,11 @@ import java.util.HashMap;
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
 //    protected List<Animal> animalList = new ArrayList<>();
-    protected HashMap<Vector2d, Animal> animalsMap = new HashMap<>();
-    final MapVisualizer map;
+    protected HashMap<Vector2d, Animal> animalsMap = new HashMap<>();   // to pole może być finalne
+    final MapVisualizer map;    // to pole może być prywatne
     public  AbstractWorldMap(){
         MapVisualizer map = new MapVisualizer(this);
-        this.map = map;
+        this.map = map; // nie można tego w jednej linijce napisać?
     }
 
     @Override
@@ -25,7 +25,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(position.x < 0 || position.y <0){
+        if(position.x < 0 || position.y <0){    // czy to jest zachowanie wspólne dla wszystkich map?
         return false;
         }
 
@@ -43,7 +43,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return map.draw(lowerLeft, upperRight);
     }
 
-    public abstract Vector2d getLowerLeft();
+    public abstract Vector2d getLowerLeft();    // tu wystarczy protected
 
     public abstract Vector2d getUpperRight();
 
