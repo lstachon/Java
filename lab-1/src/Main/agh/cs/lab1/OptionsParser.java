@@ -2,13 +2,15 @@ package agh.cs.lab1;
 import java.util.Arrays;
 public class OptionsParser {
 
-    public static MoveDirection[] parse(String[] S){
+    public static MoveDirection[] parse(String[] S) throws java.lang.IllegalArgumentException {
         int size = 0;
+
         for (int i = 0; i < S.length; i++) {
-            if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backward")
-                    || S[i].equals("l") || S[i].equals("left") || S[i].equals("r") || S[i].equals("right")) {
-                size++;
-            }
+                if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backward")
+                        || S[i].equals("l") || S[i].equals("left") || S[i].equals("r") || S[i].equals("right")) {
+                    size++;
+                }
+
         }
 
         MoveDirection result[] = new MoveDirection[size];
@@ -55,6 +57,9 @@ public class OptionsParser {
                     result[j] = MoveDirection.RIGHT;
                     j++;
                     break;
+
+                default:
+                    throw new java.lang.IllegalArgumentException(S[i] + " is not legal move specification");
             }
 
         }

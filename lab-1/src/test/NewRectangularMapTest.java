@@ -12,7 +12,7 @@ public class NewRectangularMapTest {
     public  void mapTest(){
         IWorldMap map = new RectangularMap(5,10);
         Animal a1 = new Animal(map,new Vector2d(2,2));
-        Animal a2 = new Animal(map,new Vector2d(6,10));
+        Animal a2 = new Animal(map,new Vector2d(1,10));
         Animal a3 = new Animal(map,new Vector2d(4,9));
         Animal a4 = new Animal(map,new Vector2d(5,1));
 

@@ -9,49 +9,49 @@ public class OptionsParserTest {
 
     @Test
     public void test1(){
-        String input[] ={"f","ss","r"};
+        String input[] ={"f","r"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.RIGHT};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test2(){
-        String input[] ={"f","ss","r","forward","for"};
+        String input[] ={"f","r","forward"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.FORWARD};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test3(){
-        String input[] ={"f","ss","right","forward","for"};
+        String input[] ={"f","right","forward"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.FORWARD};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test4(){
-        String input[] ={"b","ss","r","forward","for"};
+        String input[] ={"b","r","forward"};
         MoveDirection result[] = {MoveDirection.BACKWARD,MoveDirection.RIGHT,MoveDirection.FORWARD};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test5(){
-        String input[] ={"f","ss","r","B","b"};
+        String input[] ={"f","r","b"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.BACKWARD};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test6(){
-        String input[] ={"forward","s","l","forward","F"};
+        String input[] ={"forward","l","forward"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.LEFT,MoveDirection.FORWARD};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }
 
     @Test
     public void test7(){
-        String input[] ={"f","ss","r","left","for"};
+        String input[] ={"f","r","left"};
         MoveDirection result[] = {MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.LEFT};
         Assert.assertArrayEquals(OptionsParser.parse(input),result);
     }

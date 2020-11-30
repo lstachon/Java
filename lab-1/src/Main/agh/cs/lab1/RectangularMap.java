@@ -49,9 +49,9 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal) throws  IllegalArgumentException{
         if(animal.getPosition().x > this.width || animal.getPosition().y > this.height){
-            return false;
+            throw new IllegalArgumentException(animal.getPosition().toString() + "is wrong");
         }
         return super.place(animal);
     }

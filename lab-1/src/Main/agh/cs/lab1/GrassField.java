@@ -14,6 +14,8 @@ public class GrassField extends AbstractWorldMap {
     final HashMap<Vector2d, Grass> grassMap = new HashMap<>();
     final int size;
 
+    private MapBoundary map_Bound = new MapBoundary();
+
     public GrassField(int grass_a) {
         super();
         this.grass_amount = grass_a;
@@ -27,7 +29,16 @@ public class GrassField extends AbstractWorldMap {
             }
             Grass g = new Grass(v);
             grassMap.put(g.getPosition(),g);
+
+            addBound(g.getPosition());
+
         }
+    }
+
+    public void addBound(Vector2d v) {
+        this.map_Bound.xsetAnimals.add(v);
+        this.map_Bound.ysetAnimals.add(v);
+        System.out.println(map_Bound.toString());
     }
 
     @Override
@@ -91,19 +102,15 @@ public class GrassField extends AbstractWorldMap {
         return new Vector2d(max_x, max_y);
     }
 
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return super.canMoveTo(position);
-    }
-
     @Override
     public boolean place(Animal animal) {
+        addBound(animal.getPosition());
         return super.place(animal);
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
+
         boolean ani = super.isOccupied(position);
         if (!ani) {
             if(grassMap.containsKey(position)){

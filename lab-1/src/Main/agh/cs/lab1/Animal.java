@@ -1,5 +1,6 @@
 package agh.cs.lab1;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.List;
 public class Animal {
@@ -7,9 +8,10 @@ public class Animal {
     private Vector2d position;
     final IWorldMap map;
 
-    List<IPositionChangeObserver> observers;
+    private List<IPositionChangeObserver> observers;
 
     public Animal(IWorldMap map, Vector2d initialPosition){
+        this.observers = new ArrayList<>();
         this.map = map;
         this.position = initialPosition;
     }
@@ -19,7 +21,11 @@ public class Animal {
     }
 
     public void addObserver(IPositionChangeObserver observer){this.observers.add(observer);}
+
+
     public void removeObserver(IPositionChangeObserver observer){this.observers.remove(observer);}
+
+
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         this.observers.forEach(observer->observer.positionChanged(oldPosition, newPosition));
     }
@@ -51,14 +57,14 @@ public class Animal {
 
             case FORWARD:
                     Vector2d newVector = this.direction.toUnitVector();
-                    if (this.map.canMoveTo(position.add(newVector)) && !this.map.isOccupied(position.add(newVector))){
+                    if (this.map.canMoveTo(position.add(newVector)) /*&& !this.map.isOccupied(position.add(newVector))*/){
                         this.position = this.position.add(newVector);
                     }
                 break;
 
             case BACKWARD:
                 Vector2d newVector1 = this.direction.toUnitVector();
-                if(this.map.canMoveTo(position.subtract(newVector1)) && !this.map.isOccupied(position.subtract(newVector1))) {
+                if(this.map.canMoveTo(position.subtract(newVector1)) /*&& !this.map.isOccupied(position.subtract(newVector1))*/) {
                     this.position = this.position.subtract(newVector1);
                 }
 
