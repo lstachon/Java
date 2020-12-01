@@ -17,7 +17,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         map_Bound.positionChanged(oldPosition, newPosition);
-                Animal a = this.animalsMap.get(oldPosition);
+        Animal a = this.animalsMap.get(oldPosition);
         this.animalsMap.remove(oldPosition);
         this.animalsMap.put(newPosition, a);
     }
@@ -42,7 +42,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected abstract Vector2d getUpperRight();
 
     @Override
-    public boolean place(Animal animal) throws  IllegalArgumentException {
+    public boolean place(Animal animal) throws IllegalArgumentException {
         if (animalsMap.containsKey(animal.getPosition())) {
             throw new IllegalArgumentException(animal.getPosition().toString() + "is wrong");
         }

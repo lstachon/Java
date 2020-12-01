@@ -3,13 +3,13 @@ package agh.cs.lab1;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MapBoundary implements IPositionChangeObserver{
+public class MapBoundary implements IPositionChangeObserver {
 
     public TreeSet<Vector2d> xsetVectors = new TreeSet<>((o1, o2) -> {
-        if(o1.x == o2.x) {
+        if (o1.x == o2.x) {
             return Integer.compare(o1.y, o2.y);
         } else {
-            if(o1.x > o2.x) {
+            if (o1.x > o2.x) {
                 return 1;
             } else {
                 return -1;
@@ -18,10 +18,10 @@ public class MapBoundary implements IPositionChangeObserver{
     });
 
     public TreeSet<Vector2d> ysetVectors = new TreeSet<>((o1, o2) -> {
-        if(o1.y == o2.y) {
+        if (o1.y == o2.y) {
             return Integer.compare(o1.x, o2.x);
         } else {
-            if(o1.y > o2.y) {
+            if (o1.y > o2.y) {
                 return 1;
             } else {
                 return -1;
@@ -31,7 +31,7 @@ public class MapBoundary implements IPositionChangeObserver{
 
 
     @Override
-    public String toString(){
+    public String toString() {
         for (Vector2d a : this.xsetVectors) {
             System.out.println(a.toString());
         }
@@ -51,12 +51,12 @@ public class MapBoundary implements IPositionChangeObserver{
         this.ysetVectors.add(newPosition);
     }
 
-    public Vector2d getlowest(TreeSet<Vector2d> S){
-        return  S.first();
+    public Vector2d getlowest(TreeSet<Vector2d> S) {
+        return S.first();
     }
 
-    public Vector2d gethighest(TreeSet<Vector2d> S){
-        return  S.last();
+    public Vector2d gethighest(TreeSet<Vector2d> S) {
+        return S.last();
     }
 
 

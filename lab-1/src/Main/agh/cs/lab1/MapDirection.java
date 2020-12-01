@@ -1,6 +1,6 @@
 package agh.cs.lab1;
 
-public enum MapDirection{
+public enum MapDirection {
     NORTH, SOUTH, WEST, EAST;
 
     public String tostring() {
@@ -16,7 +16,8 @@ public enum MapDirection{
         }
         return null;
     }
-    public MapDirection next(){
+
+    public MapDirection next() {
         switch (this) {
             case NORTH:
                 return EAST;
@@ -29,7 +30,8 @@ public enum MapDirection{
         }
         return null;
     }
-    public MapDirection previous(){
+
+    public MapDirection previous() {
         switch (this) {
             case NORTH:
                 return WEST;
@@ -42,16 +44,17 @@ public enum MapDirection{
         }
         return null;
     }
-    public Vector2d toUnitVector(){
+
+    public Vector2d toUnitVector() {
         switch (this) {
             case NORTH:
-                return new Vector2d(0,1);
+                return new Vector2d(0, 1);
             case SOUTH:
-                return new Vector2d(0,-1);
+                return new Vector2d(0, -1);
             case WEST:
-                return new Vector2d(-1,0);
+                return new Vector2d(-1, 0);
             case EAST:
-                return new Vector2d(1,0);
+                return new Vector2d(1, 0);
         }
         return null;
     }

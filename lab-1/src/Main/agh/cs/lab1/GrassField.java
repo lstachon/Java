@@ -11,7 +11,6 @@ public class GrassField extends AbstractWorldMap {
     final int size;
 
 
-
     public GrassField(int grass_a) {
         super();
         this.grass_amount = grass_a;
@@ -24,7 +23,7 @@ public class GrassField extends AbstractWorldMap {
                 v = new Vector2d((int) (Math.random() * n + 1), (int) (Math.random() * n + 1));
             }
             Grass g = new Grass(v);
-            grassMap.put(g.getPosition(),g);
+            grassMap.put(g.getPosition(), g);
 
             addBound(g.getPosition());
 
@@ -38,16 +37,16 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         super.positionChanged(oldPosition, newPosition);
     }
 
     @Override
-    public Vector2d getLowerLeft(){
-            Vector2d lowestofx = map_Bound.getlowest(map_Bound.xsetVectors);
-            Vector2d lowestofy = map_Bound.getlowest(map_Bound.ysetVectors);
+    public Vector2d getLowerLeft() {
+        Vector2d lowestofx = map_Bound.getlowest(map_Bound.xsetVectors);
+        Vector2d lowestofy = map_Bound.getlowest(map_Bound.ysetVectors);
 
-            return lowestofx.lowerLeft(lowestofy);
+        return lowestofx.lowerLeft(lowestofy);
 
 //      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
 //        for (Animal a : this.animalsMap.values()) {
@@ -79,7 +78,7 @@ public class GrassField extends AbstractWorldMap {
 
 
     @Override
-    public Vector2d getUpperRight(){
+    public Vector2d getUpperRight() {
         Vector2d highestofx = map_Bound.gethighest(map_Bound.xsetVectors);
         Vector2d highestofy = map_Bound.gethighest(map_Bound.ysetVectors);
 
@@ -119,7 +118,7 @@ public class GrassField extends AbstractWorldMap {
 
         boolean ani = super.isOccupied(position);
         if (!ani) {
-            if(grassMap.containsKey(position)){
+            if (grassMap.containsKey(position)) {
                 return true;
             }
             return false;
@@ -131,7 +130,7 @@ public class GrassField extends AbstractWorldMap {
     public Object objectAt(Vector2d position) {
         Object obj = super.objectAt(position);
         if (obj == null) {
-            if(grassMap.containsKey(position)){
+            if (grassMap.containsKey(position)) {
                 return grassMap.get(position);
             }
             return null;

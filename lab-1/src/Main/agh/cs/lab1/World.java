@@ -1,5 +1,7 @@
 package agh.cs.lab1;
+
 import java.util.Scanner;
+
 public class World {
 
 //    static void run(String str){
@@ -22,9 +24,9 @@ public class World {
 //        }
 //    }
 
-    static void run(Direction arr[]){
-        for(int i=0; i<arr.length; i++){
-            switch(arr[i]){
+    static void run(Direction arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            switch (arr[i]) {
                 case Forward:
                     System.out.println("zwierzak idzie do przodu");
                     break;
@@ -41,23 +43,22 @@ public class World {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println("start");
 
         try {
             MoveDirection[] directions = new OptionsParser().parse(args);
             IWorldMap map = new GrassField(15);
             System.out.println(map.toString());
-            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(2, 3),new Vector2d(5, 3),new Vector2d(4, 5)};
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(2, 3), new Vector2d(5, 3), new Vector2d(4, 5)};
             IEngine engine = new SimulationEngine(directions, map, positions);
             System.out.println(map.toString());
             engine.run();
             System.out.println(map.toString());
 
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
 
 
 //Odpowiedz na pytanie: jak zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu.:
@@ -72,7 +73,6 @@ public class World {
 //    System.out.println(MapDirection.EAST.toUnitVector());
 //    System.out.println(MapDirection.WEST.tostring());
 //
-
 
 
 //        Vector2d position1 = new Vector2d(1,2);
@@ -109,7 +109,7 @@ public class World {
 //    }
 //    World.run(moves);
 
-    System.out.println("end");
+        System.out.println("end");
 
     }
 
