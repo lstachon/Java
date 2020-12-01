@@ -1,9 +1,5 @@
 package agh.cs.lab1;
 
-import java.nio.MappedByteBuffer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
@@ -11,6 +7,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     //    protected List<Animal> animalList = new ArrayList<>();
     final HashMap<Vector2d, Animal> animalsMap = new HashMap<>();
     private MapVisualizer map;
+    final MapBoundary map_Bound = new MapBoundary();
 
     public AbstractWorldMap() {
         MapVisualizer map = new MapVisualizer(this);
@@ -19,9 +16,10 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        Animal a = this.animalsMap.get(oldPosition);
-        this.animalsMap.remove(oldPosition);
-        this.animalsMap.put(newPosition, a);
+        map_Bound.positionChanged(oldPosition, newPosition);
+        //        Animal a = this.animalsMap.get(oldPosition);
+//        this.animalsMap.remove(oldPosition);
+//        this.animalsMap.put(newPosition, a);
     }
 
     @Override
@@ -54,6 +52,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         if (animal.getPosition().x < 0 || animal.getPosition().y < 0) {
             throw new IllegalArgumentException(animal.getPosition().toString() + "is wrong");
         }
+        map_Bound.xsetVectors.add(animal.getPosition());
+        map_Bound.ysetVectors.add(animal.getPosition());
+        System.out.println(map_Bound.toString());
         animalsMap.put(animal.getPosition(), animal);
         return true;
     }

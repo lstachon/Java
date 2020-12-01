@@ -1,10 +1,6 @@
 package agh.cs.lab1;
 
-import java.util.Random;
 import java.lang.Math;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.HashMap;
 
 
@@ -14,7 +10,7 @@ public class GrassField extends AbstractWorldMap {
     final HashMap<Vector2d, Grass> grassMap = new HashMap<>();
     final int size;
 
-    private MapBoundary map_Bound = new MapBoundary();
+
 
     public GrassField(int grass_a) {
         super();
@@ -36,8 +32,8 @@ public class GrassField extends AbstractWorldMap {
     }
 
     public void addBound(Vector2d v) {
-        this.map_Bound.xsetAnimals.add(v);
-        this.map_Bound.ysetAnimals.add(v);
+        this.map_Bound.xsetVectors.add(v);
+        this.map_Bound.ysetVectors.add(v);
         System.out.println(map_Bound.toString());
     }
 
@@ -48,58 +44,68 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getLowerLeft(){
-      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
-        for (Animal a : this.animalsMap.values()) {
-            for (Grass g : this.grassMap.values()) {
-                if (g.getPosition().equals(a.getPosition())) {
-                    this.grassMap.remove(g.getPosition(),g);
-                    break;
-                }
-            }
-        }
-        for (Grass g : this.grassMap.values()) {
-            if (g.getPosition().x < min_x) {
-                min_x = g.getPosition().x;
-            }
-            if (g.getPosition().y < min_y) {
-                min_y = g.getPosition().y;
-            }
-        }
-        for (Animal a : this.animalsMap.values()) {
-            if (a.getPosition().x < min_x) {
-                min_x = a.getPosition().x;
-            }
-            if (a.getPosition().y < min_y) {
-                min_y = a.getPosition().y;
-            }
-        }
-    return new Vector2d(min_x, min_y);
+            Vector2d lowestofx = map_Bound.getlowest(map_Bound.xsetVectors);
+            Vector2d lowestofy = map_Bound.getlowest(map_Bound.ysetVectors);
+
+            return lowestofx.lowerLeft(lowestofy);
+
+//      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
+//        for (Animal a : this.animalsMap.values()) {
+//            for (Grass g : this.grassMap.values()) {
+//                if (g.getPosition().equals(a.getPosition())) {
+//                    this.grassMap.remove(g.getPosition(),g);
+//                    break;
+//                }
+//            }
+//        }
+//        for (Grass g : this.grassMap.values()) {
+//            if (g.getPosition().x < min_x) {
+//                min_x = g.getPosition().x;
+//            }
+//            if (g.getPosition().y < min_y) {
+//                min_y = g.getPosition().y;
+//            }
+//        }
+//        for (Animal a : this.animalsMap.values()) {
+//            if (a.getPosition().x < min_x) {
+//                min_x = a.getPosition().x;
+//            }
+//            if (a.getPosition().y < min_y) {
+//                min_y = a.getPosition().y;
+//            }
+//        }
+//    return new Vector2d(min_x, min_y);
     }
 
 
     @Override
     public Vector2d getUpperRight(){
-        int max_x = 0, max_y = 0;
+        Vector2d highestofx = map_Bound.gethighest(map_Bound.xsetVectors);
+        Vector2d highestofy = map_Bound.gethighest(map_Bound.ysetVectors);
 
-        for (Grass g : this.grassMap.values()) {
-            if (g.getPosition().x > max_x) {
-                max_x = g.getPosition().x;
-            }
-            if (g.getPosition().y > max_y) {
-                max_y = g.getPosition().y;
-            }
-        }
+        return highestofx.upperRight(highestofy);
 
-        for (Animal a : this.animalsMap.values()) {
-            if (a.getPosition().x > max_x) {
-                max_x = a.getPosition().x;
-            }
-            if (a.getPosition().y > max_y) {
-                max_y = a.getPosition().y;
-            }
-        }
-
-        return new Vector2d(max_x, max_y);
+//        int max_x = 0, max_y = 0;
+//
+//        for (Grass g : this.grassMap.values()) {
+//            if (g.getPosition().x > max_x) {
+//                max_x = g.getPosition().x;
+//            }
+//            if (g.getPosition().y > max_y) {
+//                max_y = g.getPosition().y;
+//            }
+//        }
+//
+//        for (Animal a : this.animalsMap.values()) {
+//            if (a.getPosition().x > max_x) {
+//                max_x = a.getPosition().x;
+//            }
+//            if (a.getPosition().y > max_y) {
+//                max_y = a.getPosition().y;
+//            }
+//        }
+//
+//        return new Vector2d(max_x, max_y);
     }
 
     @Override

@@ -2,11 +2,10 @@ package agh.cs.lab1;
 
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Comparator;
 
 public class MapBoundary implements IPositionChangeObserver{
 
-    public Set<Vector2d> xsetAnimals = new TreeSet<>((o1, o2) -> {
+    public TreeSet<Vector2d> xsetVectors = new TreeSet<>((o1, o2) -> {
         if(o1.x == o2.x) {
             return Integer.compare(o1.y, o2.y);
         } else {
@@ -18,7 +17,7 @@ public class MapBoundary implements IPositionChangeObserver{
         }
     });
 
-    public Set<Vector2d> ysetAnimals = new TreeSet<>((o1, o2) -> {
+    public TreeSet<Vector2d> ysetVectors = new TreeSet<>((o1, o2) -> {
         if(o1.y == o2.y) {
             return Integer.compare(o1.x, o2.x);
         } else {
@@ -33,11 +32,11 @@ public class MapBoundary implements IPositionChangeObserver{
 
     @Override
     public String toString(){
-        for (Vector2d a : this.xsetAnimals) {
+        for (Vector2d a : this.xsetVectors) {
             System.out.println(a.toString());
         }
         System.out.println("=====");
-        for (Vector2d a : this.ysetAnimals) {
+        for (Vector2d a : this.ysetVectors) {
             System.out.println(a.toString());
         }
 
@@ -46,11 +45,23 @@ public class MapBoundary implements IPositionChangeObserver{
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        xsetAnimals.remove(oldPosition);
-        xsetAnimals.add(newPosition);
-        ysetAnimals.remove(oldPosition);
-        ysetAnimals.add(newPosition);
+        xsetVectors.remove(oldPosition);
+        xsetVectors.add(newPosition);
+        ysetVectors.remove(oldPosition);
+        ysetVectors.add(newPosition);
     }
+
+    public Vector2d getlowest(TreeSet<Vector2d> S){
+        System.out.println(S.first().toString());
+        return  S.first();
+    }
+
+    public Vector2d gethighest(TreeSet<Vector2d> S){
+        System.out.println(S.first().toString());
+        return  S.last();
+    }
+
+
 }
 
 
