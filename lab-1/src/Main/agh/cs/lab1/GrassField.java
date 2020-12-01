@@ -17,7 +17,7 @@ public class GrassField extends AbstractWorldMap {
         double wrap = Math.sqrt(grass_amount * 10);
         int n = (int) wrap;
         this.size = n;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < grass_a; i++) {
             Vector2d v = new Vector2d((int) (Math.random() * n + 1), (int) (Math.random() * n + 1));
             while (isOccupied(v)) {
                 v = new Vector2d((int) (Math.random() * n + 1), (int) (Math.random() * n + 1));
@@ -33,7 +33,6 @@ public class GrassField extends AbstractWorldMap {
     public void addBound(Vector2d v) {
         this.map_Bound.xsetVectors.add(v);
         this.map_Bound.ysetVectors.add(v);
-
     }
 
     @Override
