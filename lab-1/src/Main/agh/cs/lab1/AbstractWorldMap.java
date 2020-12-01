@@ -51,8 +51,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         if (animal.getPosition().x < 0 || animal.getPosition().y < 0) {
             throw new IllegalArgumentException(animal.getPosition().toString() + "is wrong");
         }
-        map_Bound.xsetVectors.add(animal.getPosition());
-        map_Bound.ysetVectors.add(animal.getPosition());
+        map_Bound.xSetVectors.add(animal.getPosition());
+        map_Bound.ySetVectors.add(animal.getPosition());
         animalsMap.put(animal.getPosition(), animal);
         return true;
     }

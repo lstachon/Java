@@ -3,12 +3,12 @@ package agh.cs.lab1;
 
 public class OptionsParser {
 
-    public static MoveDirection[] parse(String[] S) throws java.lang.IllegalArgumentException {
+    public static MoveDirection[] parse(String[] moveArr) throws java.lang.IllegalArgumentException {
         int size = 0;
 
-        for (int i = 0; i < S.length; i++) {
-            if (S[i].equals("f") || S[i].equals("forward") || S[i].equals("b") || S[i].equals("backward")
-                    || S[i].equals("l") || S[i].equals("left") || S[i].equals("r") || S[i].equals("right")) {
+        for (int i = 0; i < moveArr.length; i++) {
+            if (moveArr[i].equals("f") || moveArr[i].equals("forward") || moveArr[i].equals("b") || moveArr[i].equals("backward")
+                    || moveArr[i].equals("l") || moveArr[i].equals("left") || moveArr[i].equals("r") || moveArr[i].equals("right")) {
                 size++;
             }
 
@@ -16,9 +16,9 @@ public class OptionsParser {
 
         MoveDirection result[] = new MoveDirection[size];
         int j = 0;
-        for (int i = 0; i < S.length; i++) {
+        for (int i = 0; i < moveArr.length; i++) {
 
-            switch (S[i]) {
+            switch (moveArr[i]) {
                 case "f":
                     result[j] = MoveDirection.FORWARD;
                     j++;
@@ -60,7 +60,7 @@ public class OptionsParser {
                     break;
 
                 default:
-                    throw new java.lang.IllegalArgumentException(S[i] + " is not legal move specification");
+                    throw new java.lang.IllegalArgumentException(moveArr[i] + " is not legal move specification");
             }
 
         }

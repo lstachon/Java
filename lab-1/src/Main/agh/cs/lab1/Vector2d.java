@@ -40,15 +40,15 @@ public class Vector2d {
     }
 
     public Vector2d upperRight(Vector2d other) {
-        int newx = Math.max(other.x, this.x);
-        int newy = Math.max(other.y, this.y);
-        return new Vector2d(newx, newy);
+        int newX = Math.max(other.x, this.x);
+        int newY = Math.max(other.y, this.y);
+        return new Vector2d(newX, newY);
     }
 
     public Vector2d lowerLeft(Vector2d other) {
-        int newx = Math.min(other.x, this.x);
-        int newy = Math.min(other.y, this.y);
-        return new Vector2d(newx, newy);
+        int newX = Math.min(other.x, this.x);
+        int newY = Math.min(other.y, this.y);
+        return new Vector2d(newX, newY);
     }
 
     public Vector2d add(Vector2d other) {

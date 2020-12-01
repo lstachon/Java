@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 public class MapBoundary implements IPositionChangeObserver {
 
-    public TreeSet<Vector2d> xsetVectors = new TreeSet<>((o1, o2) -> {
+    public TreeSet<Vector2d> xSetVectors = new TreeSet<>((o1, o2) -> {
         if (o1.x == o2.x) {
             return Integer.compare(o1.y, o2.y);
         } else {
@@ -16,7 +16,7 @@ public class MapBoundary implements IPositionChangeObserver {
         }
     });
 
-    public TreeSet<Vector2d> ysetVectors = new TreeSet<>((o1, o2) -> {
+    public TreeSet<Vector2d> ySetVectors = new TreeSet<>((o1, o2) -> {
         if (o1.y == o2.y) {
             return Integer.compare(o1.x, o2.x);
         } else {
@@ -31,11 +31,11 @@ public class MapBoundary implements IPositionChangeObserver {
 
     @Override
     public String toString() {
-        for (Vector2d a : this.xsetVectors) {
+        for (Vector2d a : this.xSetVectors) {
             System.out.println(a.toString());
         }
         System.out.println("=====");
-        for (Vector2d a : this.ysetVectors) {
+        for (Vector2d a : this.ySetVectors) {
             System.out.println(a.toString());
         }
 
@@ -44,17 +44,17 @@ public class MapBoundary implements IPositionChangeObserver {
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        this.xsetVectors.remove(oldPosition);
-        this.xsetVectors.add(newPosition);
-        this.ysetVectors.remove(oldPosition);
-        this.ysetVectors.add(newPosition);
+        this.xSetVectors.remove(oldPosition);
+        this.xSetVectors.add(newPosition);
+        this.ySetVectors.remove(oldPosition);
+        this.ySetVectors.add(newPosition);
     }
 
-    public Vector2d getlowest(TreeSet<Vector2d> S) {
+    public Vector2d getLowest(TreeSet<Vector2d> S) {
         return S.first();
     }
 
-    public Vector2d gethighest(TreeSet<Vector2d> S) {
+    public Vector2d getHighest(TreeSet<Vector2d> S) {
         return S.last();
     }
 

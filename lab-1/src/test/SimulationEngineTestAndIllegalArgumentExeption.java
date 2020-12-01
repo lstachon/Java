@@ -50,7 +50,7 @@ public class SimulationEngineTestAndIllegalArgumentExeption {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void IllegalArgumentException_place() {
+    public void illegalArgumentException_place() {
         String[] moves = {"r", "r", "r", "r", "f", "f"};
         MoveDirection[] directions = new OptionsParser().parse(moves);
         IWorldMap map = new RectangularMap(10, 5);

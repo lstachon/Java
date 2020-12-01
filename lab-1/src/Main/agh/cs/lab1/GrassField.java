@@ -31,8 +31,8 @@ public class GrassField extends AbstractWorldMap {
     }
 
     public void addBound(Vector2d v) {
-        this.map_Bound.xsetVectors.add(v);
-        this.map_Bound.ysetVectors.add(v);
+        this.map_Bound.xSetVectors.add(v);
+        this.map_Bound.ySetVectors.add(v);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getLowerLeft() {
-        Vector2d lowestofx = map_Bound.getlowest(map_Bound.xsetVectors);
-        Vector2d lowestofy = map_Bound.getlowest(map_Bound.ysetVectors);
+        Vector2d lowestofx = map_Bound.getLowest(map_Bound.xSetVectors);
+        Vector2d lowestofy = map_Bound.getLowest(map_Bound.ySetVectors);
 
         return lowestofx.lowerLeft(lowestofy);
 
@@ -78,8 +78,8 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getUpperRight() {
-        Vector2d highestofx = map_Bound.gethighest(map_Bound.xsetVectors);
-        Vector2d highestofy = map_Bound.gethighest(map_Bound.ysetVectors);
+        Vector2d highestofx = map_Bound.getHighest(map_Bound.xSetVectors);
+        Vector2d highestofy = map_Bound.getHighest(map_Bound.ySetVectors);
 
         return highestofx.upperRight(highestofy);
 
