@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class GrassField extends AbstractWorldMap {
 
     final int grass_amount;
-    final HashMap<Vector2d, Grass> grassMap = new HashMap<>();
+    private HashMap<Vector2d, Grass> grassMap = new HashMap<>();
     final int size;
 
 

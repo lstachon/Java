@@ -10,8 +10,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final MapBoundary map_Bound = new MapBoundary();
 
     public AbstractWorldMap() {
-        MapVisualizer map = new MapVisualizer(this);
-        this.map = map;
+        this.map = new MapVisualizer(this);
     }
 
     @Override

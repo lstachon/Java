@@ -1,6 +1,5 @@
 package agh.cs.lab1;
 
-import java.util.Arrays;
 
 public class OptionsParser {
 

@@ -1,7 +1,5 @@
 package agh.cs.lab1;
 
-import java.util.LinkedHashMap;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class Vector2d {

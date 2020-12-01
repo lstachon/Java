@@ -1,9 +1,6 @@
 import agh.cs.lab1.*;
 
 import org.junit.Test;
-import org.junit.Assert;
-
-import java.util.HashMap;
 
 import static junit.framework.TestCase.*;
 

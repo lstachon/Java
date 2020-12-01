@@ -1,6 +1,5 @@
 package agh.cs.lab1;
 
-import java.util.Set;
 import java.util.TreeSet;
 
 public class MapBoundary implements IPositionChangeObserver {

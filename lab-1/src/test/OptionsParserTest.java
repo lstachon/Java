@@ -2,9 +2,6 @@ import agh.cs.lab1.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-
-import java.util.Arrays;
 
 
 public class OptionsParserTest {
