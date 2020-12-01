@@ -32,7 +32,7 @@ public class SimulationEngineTestAndIllegalArgumentExeption {
 
     @Test
     public void test2() {
-        String[] moves = {"r", "r", "r", "r","f","f","r","r","f","f","l","l","f","f","b","b"};
+        String[] moves = {"r", "r", "r", "r", "f", "f", "r", "r", "f", "f", "l", "l", "f", "f", "b", "b"};
         MoveDirection[] directions = new OptionsParser().parse(moves);
         IWorldMap map = new RectangularMap(10, 5);
 

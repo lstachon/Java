@@ -1,8 +1,8 @@
 package agh.cs.lab1;
 
 public enum Direction {
-        Forward,
-        Backward,
-        Left,
-        Right
+    Forward,
+    Backward,
+    Left,
+    Right
 }
