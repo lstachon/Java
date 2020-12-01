@@ -34,7 +34,7 @@ public class GrassField extends AbstractWorldMap {
     public void addBound(Vector2d v) {
         this.map_Bound.xsetVectors.add(v);
         this.map_Bound.ysetVectors.add(v);
-        System.out.println(map_Bound.toString());
+
     }
 
     @Override

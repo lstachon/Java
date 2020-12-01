@@ -18,7 +18,6 @@ public class SimulationEngine implements IEngine {
             this.map.place(nanimal);
             animals.add(nanimal);
 
-
 //            map.map_Bound.ysetAnimals.add(nanimal.getPosition());
 //            System.out.println(map_Bound.toString());
         }
@@ -39,16 +38,12 @@ public class SimulationEngine implements IEngine {
                 a.positionChanged(prev,a.getPosition());
                 i++;
                 i = i % animals.size();
-
             }
 
             for(Animal a: this.animals){
                 a.removeObserver((IPositionChangeObserver) this.map);
             }
-            System.out.println(map);
-        }
-        else{
-            System.out.println("nic tu nie ma");
+
         }
     }
 }

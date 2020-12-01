@@ -17,9 +17,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         map_Bound.positionChanged(oldPosition, newPosition);
-        //        Animal a = this.animalsMap.get(oldPosition);
-//        this.animalsMap.remove(oldPosition);
-//        this.animalsMap.put(newPosition, a);
+                Animal a = this.animalsMap.get(oldPosition);
+        this.animalsMap.remove(oldPosition);
+        this.animalsMap.put(newPosition, a);
     }
 
     @Override
@@ -54,7 +54,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         }
         map_Bound.xsetVectors.add(animal.getPosition());
         map_Bound.ysetVectors.add(animal.getPosition());
-        System.out.println(map_Bound.toString());
         animalsMap.put(animal.getPosition(), animal);
         return true;
     }

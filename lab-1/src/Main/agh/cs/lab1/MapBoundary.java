@@ -45,19 +45,17 @@ public class MapBoundary implements IPositionChangeObserver{
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        xsetVectors.remove(oldPosition);
-        xsetVectors.add(newPosition);
-        ysetVectors.remove(oldPosition);
-        ysetVectors.add(newPosition);
+        this.xsetVectors.remove(oldPosition);
+        this.xsetVectors.add(newPosition);
+        this.ysetVectors.remove(oldPosition);
+        this.ysetVectors.add(newPosition);
     }
 
     public Vector2d getlowest(TreeSet<Vector2d> S){
-        System.out.println(S.first().toString());
         return  S.first();
     }
 
     public Vector2d gethighest(TreeSet<Vector2d> S){
-        System.out.println(S.first().toString());
         return  S.last();
     }
 

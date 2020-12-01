@@ -52,6 +52,7 @@ public class World {
             IEngine engine = new SimulationEngine(directions, map, positions);
             System.out.println(map.toString());
             engine.run();
+            System.out.println(map.toString());
 
         }catch(IllegalArgumentException e){
             System.out.println(e.getMessage());
