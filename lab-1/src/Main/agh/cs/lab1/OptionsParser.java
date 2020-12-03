@@ -6,7 +6,7 @@ public class OptionsParser {
     public static MoveDirection[] parse(String[] moveArr) throws java.lang.IllegalArgumentException {
         int size = 0;
 
-        for (int i = 0; i < moveArr.length; i++) {
+        for (int i = 0; i < moveArr.length; i++) {  // czy to jest potrzebne, skoro rzucamy wyjątek przy błędnym kierunku?
             if (moveArr[i].equals("f") || moveArr[i].equals("forward") || moveArr[i].equals("b") || moveArr[i].equals("backward")
                     || moveArr[i].equals("l") || moveArr[i].equals("left") || moveArr[i].equals("r") || moveArr[i].equals("right")) {
                 size++;

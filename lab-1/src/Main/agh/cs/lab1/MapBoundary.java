@@ -4,11 +4,11 @@ import java.util.TreeSet;
 
 public class MapBoundary implements IPositionChangeObserver {
 
-    public TreeSet<Vector2d> xSetVectors = new TreeSet<>((o1, o2) -> {
-        if (o1.x == o2.x) {
+    public TreeSet<Vector2d> xSetVectors = new TreeSet<>((o1, o2) -> {  // to nie może być publiczne
+        if (o1.x == o2.x) {     // czy same wektory wystarczą?
             return Integer.compare(o1.y, o2.y);
         } else {
-            if (o1.x > o2.x) {
+            if (o1.x > o2.x) {  // czemu nie Integer.compare?
                 return 1;
             } else {
                 return -1;
