@@ -1,7 +1,10 @@
-.cell {
-    -fx-border-color: black;
-    -fx-border-width: 1px;
+#rootnode{
+    -fx-background-color:derive(greenyellow,90%);
+}
 
+.cell {
+    -fx-border-color: dodgerblue;
+    -fx-border-width: 1px;
 }
 .cell-highlight {
     -fx-background-color:derive(dodgerblue,90%);
@@ -10,10 +13,6 @@
     -fx-background-color:derive(green,90%);
 }
 
-.main {
-    -fx-background-color:derive(greenyellow,90%);
-}
-
-.jungle{
-    -fx-background-color:derive(forestgreen,90%);
+.cellAnimal {
+    -fx-background-color:derive(sandybrown,90%);
 }
