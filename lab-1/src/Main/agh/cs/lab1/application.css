@@ -1,0 +1,19 @@
+.cell {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+
+}
+.cell-highlight {
+    -fx-background-color:derive(dodgerblue,90%);
+}
+.cell-hover-highlight {
+    -fx-background-color:derive(green,90%);
+}
+
+.main {
+    -fx-background-color:derive(greenyellow,90%);
+}
+
+.jungle{
+    -fx-background-color:derive(forestgreen,90%);
+}

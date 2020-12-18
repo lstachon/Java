@@ -2,19 +2,28 @@ package agh.cs.lab1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine{
 
-    private MoveDirection[] directions;
     private IWorldMap map;
     private List<Animal> animals = new ArrayList<>();
 
+    public SimulationEngine( IWorldMap map, int animalStartNumber) {
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
         this.map = map;
-        this.directions = directions;
-        for (int i = 0; i < positions.length; i++) {
-            Animal nanimal = new Animal(map, positions[i]);
+
+        for (int i = 0; i < animalStartNumber; i++) {
+
+            int x = map.getWidth();
+            int y = map.getHeight();
+
+            Vector2d randomPostion = new Vector2d((int) (Math.random() * x), (int) (Math.random() * y));
+            while (map.isOccupied(randomPostion)) {
+                randomPostion = new Vector2d((int) (Math.random() * x), (int) (Math.random() * y));
+            }
+
+            Animal nanimal = new Animal(map, randomPostion, map.getMaxEnergy());
             this.map.place(nanimal);
             animals.add(nanimal);
 
@@ -22,26 +31,32 @@ public class SimulationEngine implements IEngine {
 
     }
 
-    @Override
-    public void run() {
+
+    public void go() throws InterruptedException {
         if (animals.size() > 0) {
-            int i = 0;
-            for (Animal a : this.animals) {
-                a.addObserver((IPositionChangeObserver) this.map);
+            boolean run = true;
+
+//            for (Animal a : this.animals) {
+//                a.addObserver((IPositionChangeObserver) this.map);
+//            }
+
+            while(true) {
+
+                for(int i=0; i<animals.size(); i++){
+                    Animal a = animals.get(i);
+                    Vector2d prev = a.getPosition();
+                    a.rotate();
+                    a.positionChanged(prev, a.getPosition(),a);
+                }
+                map.subtractEnergy();
+                map.removeDeadAnimals();
+                this.map.addGrass();
+
+
+                System.out.println(map.toString());
+                Thread.sleep(100);
             }
 
-            for (MoveDirection direction : directions) {
-                Animal a = animals.get(i);
-                Vector2d prev = a.getPosition();
-                a.move(direction);
-                a.positionChanged(prev, a.getPosition());
-                i++;
-                i = i % animals.size();
-            }
-
-            for (Animal a : this.animals) {
-                a.removeObserver((IPositionChangeObserver) this.map);
-            }
 
         }
     }

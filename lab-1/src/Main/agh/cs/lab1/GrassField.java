@@ -2,113 +2,135 @@ package agh.cs.lab1;
 
 import java.lang.Math;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public class GrassField extends AbstractWorldMap {
 
-    final int grass_amount;
+    private int grass_amount;
+
     private HashMap<Vector2d, Grass> grassMap = new HashMap<>();
-    final int size;
+
+    protected LinkedList<Grass> grassList = new LinkedList<>();
 
 
-    public GrassField(int grass_a) {
-        super();
-        this.grass_amount = grass_a;
-        double wrap = Math.sqrt(grass_amount * 10);
-        int n = (int) wrap;
-        this.size = n;
-        for (int i = 0; i < grass_a; i++) {
-            Vector2d v = new Vector2d((int) (Math.random() * n + 1), (int) (Math.random() * n + 1));
+
+    public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, int junglesize, int animalStart) {
+        super(width, height, startEnergy,moveEnergy, plantEnergy, junglesize);
+        this.grass_amount = 0;
+    }
+
+
+    public void addGrass(){
+        for (int i = 0; i < 2; i++) {
+            boolean flag = false;
+
+            for(int j =0; j<getWidth(); j++){
+                for(int k = 0; k<getHeight() ; k++){
+                    Vector2d v = new Vector2d(j,k);
+                    if(isOccupied(v)==false){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    break;
+                }
+            }
+
+            if(flag){
+            Vector2d v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
             while (isOccupied(v)) {
-                v = new Vector2d((int) (Math.random() * n + 1), (int) (Math.random() * n + 1));
+                v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
             }
             Grass g = new Grass(v);
             grassMap.put(g.getPosition(), g);
-
-            addBound(g.getPosition());
-
-        }
+            this.grass_amount++;
+        }}
     }
 
-    public void addBound(Vector2d v) {
-        this.map_Bound.xSetVectors.add(v);
-        this.map_Bound.ySetVectors.add(v);
+    public int getGrass_amount(){
+        return this.grass_amount;
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        super.positionChanged(oldPosition, newPosition);
+    public void subtractEnergy(){
+        System.out.println("tyle zwierzat: " + getAnimalsAlive());
+        System.out.println("grass amount: " +getGrass_amount());
+        mostPopularGene();
+        copulation();
+        eatGrass();
+        super.subtractEnergy();
+    }
+
+
+    @Override
+    public int getMaxEnergy(){
+        return super.getMaxEnergy();
+    }
+
+    @Override
+    public void eatGrass(){
+        LinkedList<Grass> toRemoveAfterEating = new LinkedList<>();
+
+        for (Grass food : grassMap.values()) {
+            LinkedList<Animal> l = animalsMap.get(food.getPosition());
+            if (l != null) {
+                if (l.size() > 0) {
+                    LinkedList<Animal> strongestAnimals = new LinkedList<>();
+                    int max = 0;
+                    for (Animal a : l) {
+                        if(a.getEnergy()>max){
+                            max = a.getEnergy();
+                        }
+                    }
+                    for(Animal a:l){
+                        if(a.getEnergy() == max){
+                            strongestAnimals.add(a);
+                        }
+                    }
+                    for(Animal a:strongestAnimals){
+                        a.addEnergy(super.plantEnergy / strongestAnimals.size(), super.startEnergy);
+                    }
+                    toRemoveAfterEating.add(food);
+                    grass_amount--;
+                }
+            }
+        }
+
+        for (Grass g : toRemoveAfterEating) {
+            grassMap.remove(g.getPosition());
+            grassList.remove(g);
+
+        }
+
+
+    }
+
+    @Override
+    public void removeDeadAnimals(){
+        super.removeDeadAnimals();
+    }
+
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Object b) {
+        super.positionChanged(oldPosition, newPosition, b);
+    }
+
+    @Override
+    public Vector2d getUpperRight() {
+        return new Vector2d(super.getWidth()-1, super.getHeight()-1);
     }
 
     @Override
     public Vector2d getLowerLeft() {
-        Vector2d lowestofx = map_Bound.getLowest(map_Bound.xSetVectors);
-        Vector2d lowestofy = map_Bound.getLowest(map_Bound.ySetVectors);
-
-        return lowestofx.lowerLeft(lowestofy);
-
-//      int  min_x = Integer.MAX_VALUE, min_y = Integer.MAX_VALUE;
-//        for (Animal a : this.animalsMap.values()) {
-//            for (Grass g : this.grassMap.values()) {
-//                if (g.getPosition().equals(a.getPosition())) {
-//                    this.grassMap.remove(g.getPosition(),g);
-//                    break;
-//                }
-//            }
-//        }
-//        for (Grass g : this.grassMap.values()) {
-//            if (g.getPosition().x < min_x) {
-//                min_x = g.getPosition().x;
-//            }
-//            if (g.getPosition().y < min_y) {
-//                min_y = g.getPosition().y;
-//            }
-//        }
-//        for (Animal a : this.animalsMap.values()) {
-//            if (a.getPosition().x < min_x) {
-//                min_x = a.getPosition().x;
-//            }
-//            if (a.getPosition().y < min_y) {
-//                min_y = a.getPosition().y;
-//            }
-//        }
-//    return new Vector2d(min_x, min_y);
-    }
-
-
-    @Override
-    public Vector2d getUpperRight() {
-        Vector2d highestofx = map_Bound.getHighest(map_Bound.xSetVectors);
-        Vector2d highestofy = map_Bound.getHighest(map_Bound.ySetVectors);
-
-        return highestofx.upperRight(highestofy);
-
-//        int max_x = 0, max_y = 0;
-//
-//        for (Grass g : this.grassMap.values()) {
-//            if (g.getPosition().x > max_x) {
-//                max_x = g.getPosition().x;
-//            }
-//            if (g.getPosition().y > max_y) {
-//                max_y = g.getPosition().y;
-//            }
-//        }
-//
-//        for (Animal a : this.animalsMap.values()) {
-//            if (a.getPosition().x > max_x) {
-//                max_x = a.getPosition().x;
-//            }
-//            if (a.getPosition().y > max_y) {
-//                max_y = a.getPosition().y;
-//            }
-//        }
-//
-//        return new Vector2d(max_x, max_y);
+       Vector2d v = new Vector2d(0,0);
+        return v;
     }
 
     @Override
     public boolean place(Animal animal) {
-        addBound(animal.getPosition());
         return super.place(animal);
     }
 
@@ -136,4 +158,71 @@ public class GrassField extends AbstractWorldMap {
         }
         return obj;
     }
+
+    @Override
+    public Vector2d childPosition(Animal animal){
+        boolean flag = false;
+        Vector2d childpos;
+        int randomX;
+        int randomY;
+
+        int maxX = animal.getPosition().x + 2;
+        int minX = animal.getPosition().x - 1;
+        int maxY = animal.getPosition().y + 2;
+        int minY = animal.getPosition().y - 1;
+
+        for(int i = animal.getPosition().x-1; i<(animal.getPosition().x+2); i++){
+            for(int k = animal.getPosition().y-1; k<(animal.getPosition().y+2); k++){
+                Vector2d v = new Vector2d(i,k);
+                if(isOccupied(v)==false){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
+                break;
+            }
+        }
+
+        if(flag) {
+            randomX = (int) (Math.random() * (maxX - minX)) + minX;
+            randomY = (int) (Math.random() * (maxY - minY)) + minY;
+
+            while (isOccupied(new Vector2d(randomX, randomY))) {
+                randomX = (int) (Math.random() * (maxX - minX)) + minX;
+                randomY = (int) (Math.random() * (maxY - minY)) + minY;
+            }
+            childpos = new Vector2d(randomX,randomY);
+        }
+        else{
+            randomX = (int) (Math.random() * (maxX - minX)) + minX;
+            randomY = (int) (Math.random() * (maxY - minY)) + minY;
+            childpos = new Vector2d(randomX,randomY);
+        }
+
+
+        if(childpos.x<0){
+            Vector2d v = new Vector2d(getWidth(),0);
+            childpos = childpos.add(v);
+        }
+        if(childpos.x>getWidth()-1){
+            Vector2d v = new Vector2d(-getWidth(),0);
+            childpos = childpos.add(v);
+        }
+
+        if(childpos.y<0){
+            Vector2d v = new Vector2d(0, getHeight());
+            childpos = childpos.add(v);
+        }
+        if(childpos.y> getHeight()-1){
+            Vector2d v = new Vector2d(0,-getHeight());
+            childpos = childpos.add(v);
+        }
+
+        return childpos;
+    }
+
+
+
+
 }

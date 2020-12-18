@@ -17,6 +17,23 @@ public interface IWorldMap {
      */
     boolean place(Animal animal);
 
+    int getWidth();
+
+    int getHeight();
+
+    void addGrass();
+
+    void eatGrass();
+
+    int getMaxEnergy();
+
+    void removeDeadAnimals();
+
+    void subtractEnergy();
+
+    void copulation();
+
+    Vector2d childPosition(Animal animal);
     /**
      * Move the animal on the map according to the provided move directions. Every
      * n-th direction should be sent to the n-th animal on the map.

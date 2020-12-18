@@ -3,35 +3,106 @@ package agh.cs.lab1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements  Animal_Interface{
+
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position;
     final IWorldMap map;
-
+    private Genes genes;
     private List<IPositionChangeObserver> observers;
+    private int energy;
 
-    public Animal(IWorldMap map, Vector2d initialPosition) {
+
+    public Animal(IWorldMap map, Vector2d initialPosition, int energy) {
+        int randomRotation = (int) (Math.random() * (8));
+        for (int i = 0; i < randomRotation; i++) {
+            this.move(MoveDirection.RIGHT);
+        }
+
         this.observers = new ArrayList<>();
         this.map = map;
         this.position = initialPosition;
+        genes = new Genes();
+        this.energy= energy;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition, int energy, Genes g1, Genes g2) {
+
+        int randomRotation = (int) (Math.random() * (8));
+        for (int i = 0; i < randomRotation; i++) {
+            this.move(MoveDirection.RIGHT);
+        }
+
+        this.observers = new ArrayList<>();
+        this.map = map;
+        this.position = initialPosition;
+        genes = new Genes(g1,g2);
+        this.energy= energy;
+    }
+
+
+    public void addEnergy(int energy, int maxEnergy){
+        this.energy += energy;
+        if(this.energy>maxEnergy){
+            this.energy = maxEnergy;
+        }
+    }
+
+    public void subtract(int moveCost){
+        this.energy -=moveCost;
+    }
+
+    public void rotate() {
+        int numOfRotation = genes.returnRandomGen();
+        System.out.println(numOfRotation+" "+this.energy);
+
+
+        for (int i = 0; i < numOfRotation; i++) {
+            this.move(MoveDirection.RIGHT);
+        }
+        this.move(MoveDirection.FORWARD);
+
+    }
+
+    public Animal copulation(Animal anotherAnimal, Vector2d childPos){
+        int childEnergy = (int) (0.25 * this.energy) + (int) (0.25 * anotherAnimal.energy);
+        anotherAnimal.subtract((int) -(0.25 * anotherAnimal.energy));
+        this.subtract((int) -(this.energy * 0.25));
+        return new Animal(map, childPos , childEnergy, this.genes ,anotherAnimal.genes);
+    }
+
+    public int getEnergy(){
+        return this.energy;
+    }
+
+    public boolean isDead(){
+        if(this.energy >0){
+            return false;
+        }
+        return true;
     }
 
     public Vector2d getPosition() {
         return position;
     }
 
-    public void addObserver(IPositionChangeObserver observer) {
-        this.observers.add(observer);
+    public Genes getGenes(){
+        return this.genes;
     }
 
+    @Override
+    public void addObserver(IPositionChangeObserver observer) {
+        observers.add(observer);
+    }
 
     public void removeObserver(IPositionChangeObserver observer) {
-        this.observers.remove(observer);
+        observers.remove(observer);
     }
 
-
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        this.observers.forEach(observer -> observer.positionChanged(oldPosition, newPosition));
+    public void positionChanged(Vector2d old, Vector2d n, Object a) {
+        for (IPositionChangeObserver o : observers) {
+            o.positionChanged(old, n, a);
+        }
     }
 
     @Override
@@ -45,10 +116,19 @@ public class Animal {
                 return "W";
             case SOUTH:
                 return "S";
+            case NORTH_EAST:
+                return "NE";
+            case SOUTH_EAST:
+                return "SE";
+            case NORTH_WEST:
+                return "NW";
+            case SOUTH_WEST:
+                return "SW";
         }
-        ;
+
         return null;
     }
+
 
     public void move(MoveDirection direction) {
         switch (direction) {
@@ -62,17 +142,30 @@ public class Animal {
 
             case FORWARD:
                 Vector2d newVector = this.direction.toUnitVector();
-                if (this.map.canMoveTo(position.add(newVector)) /*&& !this.map.isOccupied(position.add(newVector))*/) {
                     this.position = this.position.add(newVector);
+
+
+                    if(this.getPosition().x<0){
+                        Vector2d v = new Vector2d(map.getWidth(),0);
+                        this.position = this.position.add(v);
+                    }
+                if(this.getPosition().x>map.getWidth()-1){
+                    Vector2d v = new Vector2d(-map.getWidth(),0);
+                    this.position = this.position.add(v);
                 }
+
+                if(this.getPosition().y<0){
+                    Vector2d v = new Vector2d(0, map.getHeight());
+                    this.position = this.position.add(v);
+                }
+                if(this.getPosition().y> map.getHeight()-1){
+                    Vector2d v = new Vector2d(0,-map.getHeight());
+                    this.position = this.position.add(v);
+                }
+
                 break;
 
             case BACKWARD:
-                Vector2d newVector1 = this.direction.toUnitVector();
-                if (this.map.canMoveTo(position.subtract(newVector1)) /*&& !this.map.isOccupied(position.subtract(newVector1))*/) {
-                    this.position = this.position.subtract(newVector1);
-                }
-
                 break;
         }
     }
