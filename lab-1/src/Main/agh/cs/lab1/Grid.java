@@ -13,12 +13,13 @@ public class Grid extends Pane {
 
     Cell[][] cells;
 
-    public Grid( int columns, int rows, double width, double height) {
+    public Grid( int columns, int rows, double width, double height, IWorldMap map) {
 
         this.columns = columns;
         this.rows = rows;
         this.width = width;
         this.height = height;
+        this.map = map;
 
         cells = new Cell[rows][columns];
 
@@ -29,6 +30,11 @@ public class Grid extends Pane {
 
                 Cell cell = new Cell(column, row);
 
+                Object object = map.objectAt(new Vector2d(row,column));
+
+                if(object instanceof Animal){
+                    getStyleClass().add("cellAnimal");
+                }
 
                 mg.makePaintable(cell);
 

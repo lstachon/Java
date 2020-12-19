@@ -23,6 +23,7 @@ import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
 import java.io.IOException;
@@ -36,8 +37,6 @@ public class simulation extends Application {
 
 
 
-    int rows = 20;
-    int columns = 20;
     double width = 250;
     double height = 250;
     double maxheight = 400;
@@ -46,7 +45,7 @@ public class simulation extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, ParseException {
 
         Pane root = (Pane) FXMLLoader.load(simulation.class.getResource ("simulation_view.fxml"));
 
@@ -76,38 +75,13 @@ public class simulation extends Application {
 
             animalStatistics1.getChildren().add(group);
 
-//            MouseGestures mg = new MouseGestures();
+            propertiesLoader properties = new propertiesLoader();
 
+            IWorldMap map = new GrassField(properties.getWidth(),properties.getHeight(),properties.getStartEnergy(), properties.getMoveEnergy(),properties.getPlantEnergy(),properties.getJungleRatio(),properties.getStartAnimals());
 
-            Grid grid = new Grid(columns, rows, width, height);
+            Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map);
 
-            // fill grid
-//            for (int row = 0; row < rows; row++) {
-//                for (int column = 0; column < columns; column++) {
-//
-//                    Cell cell = new Cell(column, row);
-//
-//
-//                    mg.makePaintable(cell);
-//
-//                    grid.add(cell, column, row);
-//                }
-//            }
-
-            Grid grid2 = new Grid(columns, rows, width, height);
-
-            // fill grid
-//            for (int row = 0; row < rows; row++) {
-//                for (int column = 0; column < columns; column++) {
-//
-//                    Cell cell = new Cell(column, row);
-//
-//
-//                    mg.makePaintable(cell);
-//
-//                    grid2.add(cell, column, row);
-//                }
-//            }
+            Grid grid2 = new Grid(properties.getWidth(), properties.getHeight(), width, height, map);
 
             root1.getChildren().addAll(grid);
 

@@ -15,7 +15,7 @@ public class GrassField extends AbstractWorldMap {
 
 
 
-    public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, int junglesize, int animalStart) {
+    public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize, int animalStart) {
         super(width, height, startEnergy,moveEnergy, plantEnergy, junglesize);
         this.grass_amount = 0;
     }

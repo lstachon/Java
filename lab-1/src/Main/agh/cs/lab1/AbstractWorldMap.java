@@ -10,7 +10,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final int startEnergy;
     final int moveEnergy;
     final int plantEnergy;
-    final int jungleratio;
+    final double jungleratio;
 
     private int animalsAlive;
 
@@ -24,7 +24,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     final MapVisualizer map;
 
-    public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, int junglesize) {
+    public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize) {
         this.map = new MapVisualizer(this);
         this.width = width;
         this.height = height;

@@ -1,84 +1,65 @@
 package agh.cs.lab1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import com.google.gson.Gson;
+import java.io.*;
+
+import com.google.gson.JsonParser;
+
+import org.json.simple.*;
+
+
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class propertiesLoader {
 
-    private int width;
-    private int height;
-    private int startEnergy;
-    private int moveEnergy;
-    private int plantEnergy;
-    private double jungleRatio;
-    private int startAnimals;
+    final int width;
+    final int height;
+    final int startEnergy;
+    final int moveEnergy;
+    final int plantEnergy;
+    final double jungleRatio;
+    final int startAnimals;
 
-    static public propertiesLoader loadPropFromFile() throws FileNotFoundException,IllegalArgumentException {
-        Gson gson = new Gson();
-        File f = new File("");
-        System.out.println(f.getAbsolutePath());
-        return gson.fromJson(new FileReader("src\\Main\\agh\\cs\\lab1\\\\parameters.json"), propertiesLoader.class);
+     public propertiesLoader() throws IOException, IllegalArgumentException, ParseException {
+        JSONParser json = new JSONParser();
+        String path = new File("").getAbsolutePath();
+        JSONObject data  = (JSONObject) json.parse(new FileReader(path+"/lab-1/src/Main/agh/cs/lab1/json/parameters.json"));
+        this.width = Integer.parseInt(data.get("width").toString());
+        this.height = Integer.parseInt(data.get("height").toString());
+        this.startEnergy = Integer.parseInt(data.get("startEnergy").toString());
+        this.moveEnergy = Integer.parseInt(data.get("moveEnergy").toString());
+        this.plantEnergy = Integer.parseInt(data.get("plantEnergy").toString());
+        this.jungleRatio = Double.valueOf(data.get("jungleRatio").toString());
+        this.startAnimals = Integer.parseInt(data.get("startAnimals").toString());
     }
 
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public double getJungleRatio() {
         return jungleRatio;
     }
 
-    public void setJungleRatio(int jungleRatio) {
-        this.jungleRatio = jungleRatio;
-    }
-
     public int getPlantEnergy() {
         return plantEnergy;
     }
-
-    public void setPlantEnergy(int plantEnergy) {
-        this.plantEnergy = plantEnergy;
-    }
-
-    public int getMoveEnergy() {
-        return moveEnergy;
-    }
-
-    public void setMoveEnergy(int moveEnergy) {
-        this.moveEnergy = moveEnergy;
+    public int getMoveEnergy(){
+         return moveEnergy;
     }
 
     public int getStartEnergy() {
         return startEnergy;
     }
 
-    public void setStartEnergy(int startEnergy) {
-        this.startEnergy = startEnergy;
-    }
-
     public int getStartAnimals() {
         return startAnimals;
     }
-
-    public void setStartAnimals(int startAnimals) {
-        this.startAnimals = startAnimals;
-    }
-
-
-
 
 }
