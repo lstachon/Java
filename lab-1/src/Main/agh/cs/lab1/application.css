@@ -3,16 +3,10 @@
 }
 
 .cell {
-    -fx-border-color: dodgerblue;
+    -fx-background-color: #663300;
+    -fx-border-color: #065e20;
     -fx-border-width: 1px;
 }
-.cell-highlight {
-    -fx-background-color:derive(dodgerblue,90%);
-}
-.cell-hover-highlight {
-    -fx-background-color:derive(green,90%);
-}
 
-.cellAnimal {
-    -fx-background-color:derive(sandybrown,90%);
-}
+
+

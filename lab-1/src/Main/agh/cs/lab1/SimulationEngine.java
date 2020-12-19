@@ -28,19 +28,18 @@ public class SimulationEngine{
             animals.add(nanimal);
 
         }
-
     }
 
 
     public void go() throws InterruptedException {
         if (animals.size() > 0) {
-            boolean run = true;
+            int run = 0;
 
 //            for (Animal a : this.animals) {
 //                a.addObserver((IPositionChangeObserver) this.map);
 //            }
 
-            while(true) {
+            while(run ==1) {
 
                 for(int i=0; i<animals.size(); i++){
                     Animal a = animals.get(i);
@@ -54,7 +53,8 @@ public class SimulationEngine{
 
 
                 System.out.println(map.toString());
-                Thread.sleep(100);
+//                Thread.sleep(100);
+                run++;
             }
 
 

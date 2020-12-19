@@ -1,5 +1,8 @@
 package agh.cs.lab1;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public interface IWorldMap {
     /**
      * Indicate if any object can move to the given position.
@@ -34,6 +37,16 @@ public interface IWorldMap {
     void copulation();
 
     Vector2d childPosition(Animal animal);
+
+    Animal getStrongest(LinkedList<Animal> animalList);
+
+    HashMap<Vector2d, LinkedList<Animal>> getAnimalsMap();
+
+    HashMap<Vector2d, Grass> getGrassMap();
+
+    int getGrass_amount();
+
+    boolean isInJungle(Vector2d v);
     /**
      * Move the animal on the map according to the provided move directions. Every
      * n-th direction should be sent to the n-th animal on the map.

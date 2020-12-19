@@ -1,7 +1,6 @@
 package agh.cs.lab1;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
@@ -37,6 +36,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     public LinkedList<Animal> getAnimals() {
         return animalLinkedList;
+    }
+
+    @Override
+    public HashMap<Vector2d, LinkedList<Animal>> getAnimalsMap() {
+        return this.animalsMap;
     }
 
     public void mostPopularGene(){
@@ -219,10 +223,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         for (LinkedList<Animal> animalList : animalsMap.values()) {
             if (animalList != null) {
                 if (animalList.size() >= 2) {
+                    animalList.sort(Collections.reverseOrder());
                     Animal mother = animalList.get(0);
                     Animal anotherMother = animalList.get(1);
-                    if (mother.getEnergy() > 0.25*this.startEnergy)
-                        if (anotherMother.getEnergy() > 0.25*this.startEnergy) {
+                    if (mother.getEnergy() >= 0.5*this.startEnergy)
+                        if (anotherMother.getEnergy() >= 0.5*this.startEnergy) {
                             Vector2d childPos = mother.map.childPosition(mother);
                             //Vector2d childPos = mother.getPosition();
                             Animal child = mother.copulation(anotherMother, childPos);
@@ -237,6 +242,12 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
             place(a);
         }
 
+    }
+
+    @Override
+    public Animal getStrongest(LinkedList<Animal> animalList){
+        animalList.sort(Collections.reverseOrder());
+        return animalList.getFirst();
     }
 
     @Override

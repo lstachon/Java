@@ -7,9 +7,17 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 
+import java.util.LinkedList;
+
 public class MouseGestures {
 
     boolean showHoverCursor = false;
+
+    IWorldMap map;
+
+    public MouseGestures(IWorldMap map){
+        this.map = map;
+    }
 
     public void makePaintable( Node node) {
 
@@ -45,7 +53,20 @@ public class MouseGestures {
     EventHandler<MouseEvent> onMousePressedEventHandler = event -> {
 
         Cell cell = (Cell) event.getSource();
+
         System.out.println(cell.column+" "+cell.row);
+
+        Object object = map.objectAt(new Vector2d(cell.row,cell.column));
+
+        if(object != null){
+
+            if(object instanceof LinkedList){
+                if(((LinkedList<?>) object).getFirst() instanceof Animal){
+                Animal a = map.getStrongest((LinkedList<Animal>) object);
+                System.out.println(a);
+            }}}
+
+
         if( event.isPrimaryButtonDown()) {
             cell.highlight();
         } else if( event.isSecondaryButtonDown()) {

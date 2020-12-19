@@ -22,13 +22,13 @@ public class GrassField extends AbstractWorldMap {
 
 
     public void addGrass(){
-        for (int i = 0; i < 2; i++) {
+
             boolean flag = false;
 
             for(int j =0; j<getWidth(); j++){
                 for(int k = 0; k<getHeight() ; k++){
                     Vector2d v = new Vector2d(j,k);
-                    if(isOccupied(v)==false){
+                    if(isOccupied(v)==false && isInJungle(v)==false){
                         flag = true;
                         break;
                     }
@@ -40,17 +40,68 @@ public class GrassField extends AbstractWorldMap {
 
             if(flag){
             Vector2d v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
-            while (isOccupied(v)) {
+            while (isOccupied(v) || isInJungle(v)) {
                 v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
             }
             Grass g = new Grass(v);
             grassMap.put(g.getPosition(), g);
             this.grass_amount++;
-        }}
+        }
+
+
+            flag = false;
+
+        for(int j =0; j<getWidth(); j++){
+            for(int k = 0; k<getHeight() ; k++){
+                Vector2d v = new Vector2d(j,k);
+                if(isOccupied(v)==false && isInJungle(v)){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
+                break;
+            }
+        }
+
+        if(flag) {
+            Vector2d v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
+            while (isOccupied(v) || isInJungle(v)==false) {
+                v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
+            }
+            Grass g = new Grass(v);
+            grassMap.put(g.getPosition(), g);
+            this.grass_amount++;
+        }
+
     }
 
+    @Override
+    public boolean isInJungle(Vector2d v){
+        int jungle = (int) Math.sqrt((super.width*super.height)*super.jungleratio);
+        int junglexMin = (int)((super.width-jungle)/2);
+        int junglexMax= (int)((super.width-jungle)/2+jungle);
+
+        int jungleyMin = (int)((super.height-jungle)/2);
+        int jungleyMax= (int)((super.height-jungle)/2+jungle);
+
+        if(v.x>junglexMin && v.x<junglexMax){
+            if(v.y>jungleyMin && v.y<jungleyMax){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
     public int getGrass_amount(){
         return this.grass_amount;
+    }
+
+    @Override
+    public HashMap<Vector2d, Grass> getGrassMap(){
+        return this.grassMap;
     }
 
     @Override

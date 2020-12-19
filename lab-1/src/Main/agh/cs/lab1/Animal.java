@@ -3,7 +3,7 @@ package agh.cs.lab1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal implements  Animal_Interface{
+public class Animal implements  Animal_Interface, Comparable<Animal>{
 
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position;
@@ -170,4 +170,16 @@ public class Animal implements  Animal_Interface{
         }
     }
 
+    @Override
+    public int compareTo(Animal o) {
+        if(this.getEnergy()>o.getEnergy()){
+            return 1;
+        }
+        if(this.getEnergy() == o.getEnergy()) {
+            return 0;
+        }
+        else{
+            return -1;
+        }
+    }
 }
