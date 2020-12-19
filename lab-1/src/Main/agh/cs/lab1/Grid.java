@@ -8,6 +8,8 @@ public class Grid extends Pane {
     int columns;
     double width;
     double height;
+    IWorldMap map;
+
 
     Cell[][] cells;
 
@@ -19,6 +21,20 @@ public class Grid extends Pane {
         this.height = height;
 
         cells = new Cell[rows][columns];
+
+        MouseGestures mg = new MouseGestures();
+
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+
+                Cell cell = new Cell(column, row);
+
+
+                mg.makePaintable(cell);
+
+                this.add(cell, column, row);
+            }
+        }
 
     }
 

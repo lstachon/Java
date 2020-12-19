@@ -34,10 +34,10 @@ public class simulation extends Application {
         launch(args);
     }
 
-    boolean showHoverCursor = false;
 
-    int rows = 40;
-    int columns = 40;
+
+    int rows = 20;
+    int columns = 20;
     double width = 250;
     double height = 250;
     double maxheight = 400;
@@ -76,38 +76,38 @@ public class simulation extends Application {
 
             animalStatistics1.getChildren().add(group);
 
-            MouseGestures mg = new MouseGestures();
+//            MouseGestures mg = new MouseGestures();
 
 
             Grid grid = new Grid(columns, rows, width, height);
 
             // fill grid
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-
-                    Cell cell = new Cell(column, row);
-
-
-                    mg.makePaintable(cell);
-
-                    grid.add(cell, column, row);
-                }
-            }
+//            for (int row = 0; row < rows; row++) {
+//                for (int column = 0; column < columns; column++) {
+//
+//                    Cell cell = new Cell(column, row);
+//
+//
+//                    mg.makePaintable(cell);
+//
+//                    grid.add(cell, column, row);
+//                }
+//            }
 
             Grid grid2 = new Grid(columns, rows, width, height);
 
             // fill grid
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-
-                    Cell cell = new Cell(column, row);
-
-
-                    mg.makePaintable(cell);
-
-                    grid2.add(cell, column, row);
-                }
-            }
+//            for (int row = 0; row < rows; row++) {
+//                for (int column = 0; column < columns; column++) {
+//
+//                    Cell cell = new Cell(column, row);
+//
+//
+//                    mg.makePaintable(cell);
+//
+//                    grid2.add(cell, column, row);
+//                }
+//            }
 
             root1.getChildren().addAll(grid);
 
@@ -119,95 +119,6 @@ public class simulation extends Application {
             primaryStage.setScene(scene);
 
         primaryStage.show();
-
-    }
-
-
-
-    public class MouseGestures {
-
-        public void makePaintable( Node node) {
-
-
-            // that's all there is needed for hovering, the other code is just for painting
-            if( showHoverCursor) {
-                node.hoverProperty().addListener(new ChangeListener<Boolean>(){
-
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-
-                        System.out.println( observable + ": " + newValue);
-
-                        if( newValue) {
-                            ((Cell) node).hoverHighlight();
-                        } else {
-                            ((Cell) node).hoverUnhighlight();
-                        }
-
-                        for( String s: node.getStyleClass())
-                            System.out.println( node + ": " + s);
-                    }
-
-                });
-            }
-
-            node.setOnMousePressed( onMousePressedEventHandler);
-            node.setOnDragDetected( onDragDetectedEventHandler);
-            node.setOnMouseDragEntered(onMouseDragEnteredEventHandler);
-
-        }
-
-        EventHandler<MouseEvent> onMousePressedEventHandler = event -> {
-
-            Cell cell = (Cell) event.getSource();
-            System.out.println(cell.column+" "+cell.row);
-            if( event.isPrimaryButtonDown()) {
-                cell.highlight();
-            } else if( event.isSecondaryButtonDown()) {
-                cell.unhighlight();
-            }
-        };
-
-        EventHandler<MouseEvent> onMouseDraggedEventHandler = event -> {
-
-            PickResult pickResult = event.getPickResult();
-            Node node = pickResult.getIntersectedNode();
-
-            if( node instanceof Cell) {
-
-                Cell cell = (Cell) node;
-
-                if( event.isPrimaryButtonDown()) {
-                    cell.highlight();
-                } else if( event.isSecondaryButtonDown()) {
-                    cell.unhighlight();
-                }
-
-            }
-
-        };
-
-        EventHandler<MouseEvent> onMouseReleasedEventHandler = event -> {
-        };
-
-        EventHandler<MouseEvent> onDragDetectedEventHandler = event -> {
-
-            Cell cell = (Cell) event.getSource();
-            cell.startFullDrag();
-
-        };
-
-        EventHandler<MouseEvent> onMouseDragEnteredEventHandler = event -> {
-
-            Cell cell = (Cell) event.getSource();
-
-            if( event.isPrimaryButtonDown()) {
-                cell.highlight();
-            } else if( event.isSecondaryButtonDown()) {
-                cell.unhighlight();
-            }
-
-        };
 
     }
 
