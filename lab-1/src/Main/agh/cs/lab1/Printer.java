@@ -2,10 +2,7 @@ package agh.cs.lab1;
 
 import javafx.scene.canvas.GraphicsContext;
 
-/**
- * @author Subhomoy Haldar
- * @version 2016.12.17
- */
+
 public class Printer implements Runnable {
     private final Grid grid;
     private final GraphicsContext context;

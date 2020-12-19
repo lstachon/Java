@@ -110,9 +110,19 @@ public class Grid extends Pane {
             }
 
         for(Vector2d key: map.getAnimalsMap().keySet()) {
-            this.cells[key.x][key.y].setStyle("-fx-background-color: #ffb366;");
+            if(map.getAnimalsMap().get(key).size()==1) {
+                this.cells[key.x][key.y].setStyle("-fx-background-color: #ffb366;");
+            }
+            else{
+                this.cells[key.x][key.y].setStyle("-fx-background-color: #a84e32;");
+            }
 
         }
+
+        for (Vector2d v : map.getGrassMap().keySet()) {
+            this.cells[v.x][v.y].setStyle("-fx-background-color: #66ff33;");
+        }
+
 
         this.map.subtractEnergy();
         this.map.removeDeadAnimals();
