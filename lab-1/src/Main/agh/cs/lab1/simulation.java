@@ -4,6 +4,7 @@ import com.sun.jdi.LongValue;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
+
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,11 +27,15 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import org.json.simple.parser.ParseException;
+import sun.java2d.CRenderer;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.server.ExportException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class simulation extends Application {
 
@@ -45,7 +50,7 @@ public class simulation extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws IOException, ParseException {
+    public void start(Stage primaryStage) throws IOException, ParseException, InterruptedException {
 
             Pane root = (Pane) FXMLLoader.load(simulation.class.getResource("simulation_view.fxml"));
 
@@ -83,15 +88,48 @@ public class simulation extends Application {
             IWorldMap map2 = new GrassField(properties.getWidth(), properties.getHeight(), properties.getStartEnergy(), properties.getMoveEnergy(), properties.getPlantEnergy(), properties.getJungleRatio(), properties.getStartAnimals());
             SimulationEngine engine2 = new SimulationEngine(map2, properties.getStartAnimals());
 
-            Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
-
             Grid grid2 = new Grid(properties.getWidth(), properties.getHeight(), width, height, map2, properties.getJungleRatio());
 
-//            grid.nextday();
+             Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
 
-            root1.getChildren().addAll(grid);
 
-            root2.getChildren().addAll(grid2);
+
+
+        new Thread(()-> {
+                new AnimationTimer() {
+                    public void handle(long currentNanoTime) {
+                        try {
+                            grid.nextday();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }.start();
+
+        }).start();
+
+        new Thread(()-> {
+
+            new AnimationTimer() {
+                public void handle(long currentNanoTime) {
+                    try {
+                        grid2.nextday();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+            }.start();
+
+        }).start();
+
+
+        root1.getChildren().addAll(grid);
+        root2.getChildren().addAll(grid2);
 
 
             Scene scene = new Scene(rootwindow, maxwidth, maxheight);
@@ -100,9 +138,9 @@ public class simulation extends Application {
 
             primaryStage.show();
 
-//        (new Thread(loop)).start();
 
     }
+
 
 }
 

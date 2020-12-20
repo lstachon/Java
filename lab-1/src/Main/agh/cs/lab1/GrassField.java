@@ -1,6 +1,7 @@
 package agh.cs.lab1;
 
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -76,6 +77,26 @@ public class GrassField extends AbstractWorldMap {
 
     }
 
+
+    @Override
+    public void moveAll(){
+
+        ArrayList<LinkedList> linkedsuperlist = new ArrayList<LinkedList>(super.getAnimalsMap().values());
+
+
+        for (LinkedList<Animal> animalList : linkedsuperlist) {
+            if (animalList != null) {
+                ArrayList<Animal> animalArrayList = new ArrayList<Animal>(animalList);
+                for(Animal a: animalArrayList){
+                    Vector2d prev = a.getPosition();
+                    a.rotate();
+                    a.positionChanged(prev, a.getPosition(),a);
+                }
+            }
+
+        }
+    }
+
     @Override
     public boolean isInJungle(Vector2d v){
         int jungle = (int) Math.sqrt((super.width*super.height)*super.jungleratio);
@@ -104,14 +125,21 @@ public class GrassField extends AbstractWorldMap {
         return this.grassMap;
     }
 
+
     @Override
     public void subtractEnergy(){
-        System.out.println("tyle zwierzat: " + getAnimalsAlive());
-        System.out.println("grass amount: " +getGrass_amount());
-        mostPopularGene();
-        copulation();
-        eatGrass();
-        super.subtractEnergy();
+
+        for (LinkedList<Animal> animalList : animalsMap.values()) {
+            if (animalList != null) {
+                if (animalList.size() > 0) {
+                    for (Animal a : animalList) {
+                        a.subtract(super.moveEnergy);
+
+                    }
+                }
+            }
+        }
+        System.out.println(super.getAnimalsAlive());
     }
 
 

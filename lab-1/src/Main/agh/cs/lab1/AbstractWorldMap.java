@@ -10,6 +10,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final int moveEnergy;
     final int plantEnergy;
     final double jungleratio;
+    private Genes mostPolupar;
 
     private int animalsAlive;
 
@@ -44,7 +45,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     public void mostPopularGene(){
-        Genes g= new Genes();
+        Genes g= null;
         int max = -1;
         for (LinkedList<Animal> animalGeneslist : genesCount.values()) {
             if (animalGeneslist != null) {
@@ -54,31 +55,24 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
                 }
             }
         }
-
-        if(max!=-1) {
-            System.out.println("-------");
-            System.out.println("tyle jest zwierzat z najczestszym genem " + max);
-            g.printGens();
-            System.out.println("-------");
-        }
-        else {
-            System.out.println("zwierzeta umarly");
-        }
+        this.mostPolupar = g;
+//        if(max!=-1) {
+//            System.out.println("-------");
+//            System.out.println("tyle jest zwierzat z najczestszym genem " + max);
+//            g.printGens();
+//            System.out.println("-------");
+//        }
+//        else {
+//            System.out.println("zwierzeta umarly");
+//        }
 
     }
 
-    @Override
-    public void subtractEnergy(){
-        for (LinkedList<Animal> animalList : animalsMap.values()) {
-            if (animalList != null) {
-                if (animalList.size() > 0) {
-                    for (Animal a : animalList) {
-                        a.subtract(this.moveEnergy);
-                    }
-                }
-            }
-        }
+    public Genes getMostPoluparGene(){
+        return mostPolupar;
     }
+
+
 
     @Override
     public void removeDeadAnimals() {
@@ -99,13 +93,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return this.startEnergy;
     }
 
-    @Override
-    public void eatGrass(){
-    }
 
-    @Override
-    public void addGrass(){
-    }
 
     @Override
     public int getWidth(){
@@ -226,10 +214,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
                     animalList.sort(Collections.reverseOrder());
                     Animal mother = animalList.get(0);
                     Animal anotherMother = animalList.get(1);
-                    if (mother.getEnergy() >= 0.5*this.startEnergy)
-                        if (anotherMother.getEnergy() >= 0.5*this.startEnergy) {
+                    if (mother.getEnergy() > 0.5*this.startEnergy)
+                        if (anotherMother.getEnergy() > 0.5*this.startEnergy) {
                             Vector2d childPos = mother.map.childPosition(mother);
-                            //Vector2d childPos = mother.getPosition();
                             Animal child = mother.copulation(anotherMother, childPos);
                             childrenToAdd.add(child);
 

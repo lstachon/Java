@@ -47,6 +47,9 @@ public interface IWorldMap {
     int getGrass_amount();
 
     boolean isInJungle(Vector2d v);
+
+    void moveAll();
+
     /**
      * Move the animal on the map according to the provided move directions. Every
      * n-th direction should be sent to the n-th animal on the map.

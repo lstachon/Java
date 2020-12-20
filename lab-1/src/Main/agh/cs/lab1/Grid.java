@@ -1,8 +1,11 @@
 package agh.cs.lab1;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Grid extends Pane {
@@ -13,6 +16,8 @@ public class Grid extends Pane {
     double height;
     IWorldMap map;
     double jungleRatio;
+    private Controller controller;
+
 
     Cell[][] cells;
 
@@ -23,11 +28,9 @@ public class Grid extends Pane {
         this.width = width;
         this.height = height;
         this.map = map;
-        this.jungleRatio =jungleRatio;
-
+        this.jungleRatio = jungleRatio;
+        this.controller = new Controller();
         cells = new Cell[rows][columns];
-
-        int jungle = (int) Math.sqrt((rows*columns)*this.jungleRatio);
 
         MouseGestures mg = new MouseGestures(this.map);
 
@@ -78,60 +81,45 @@ public class Grid extends Pane {
             }
         }
 
-
     }
 
     public void nextday() throws InterruptedException {
+        if(controller.keyIsPressed) {
+            for (int row = 0; row < rows; row++) {
+                for (int column = 0; column < columns; column++) {
 
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
-
-                if (map.isInJungle(new Vector2d(row,column))){
-                    this.cells[row][column].setStyle("-fx-background-color: #009933;");
-                }
-                else {
-                    this.cells[row][column].setStyle("-fx-background-color: #663300;");
-                }
-
-            }
-        }
-
-        for (LinkedList<Animal> animalList : map.getAnimalsMap().values()) {
-            if (animalList != null) {
-                    for(int i=0; i<animalList.size(); i++){
-                        Animal a = animalList.get(i);
-                        Vector2d prev = a.getPosition();
-                        a.rotate();
-                        a.positionChanged(prev, a.getPosition(),a);
+                    if (map.isInJungle(new Vector2d(row, column))) {
+                        this.cells[row][column].setStyle("-fx-background-color: #009933;");
+                    } else {
+                        this.cells[row][column].setStyle("-fx-background-color: #663300;");
                     }
 
                 }
+            }
+
+            for (Vector2d v : map.getGrassMap().keySet()) {
+                this.cells[v.x][v.y].setStyle("-fx-background-color: #66ff33;");
+            }
+
+
+            for (Vector2d key : map.getAnimalsMap().keySet()) {
+                if (map.getAnimalsMap().get(key).size() == 1) {
+                    this.cells[key.x][key.y].setStyle("-fx-background-color: #ffb366;");
+                } else {
+                    this.cells[key.x][key.y].setStyle("-fx-background-color: #a84e32;");
+                }
 
             }
 
-        for(Vector2d key: map.getAnimalsMap().keySet()) {
-            if(map.getAnimalsMap().get(key).size()==1) {
-                this.cells[key.x][key.y].setStyle("-fx-background-color: #ffb366;");
-            }
-            else{
-                this.cells[key.x][key.y].setStyle("-fx-background-color: #a84e32;");
-            }
-
+            this.map.addGrass();
+            this.map.copulation();
+            this.map.eatGrass();
+            this.map.removeDeadAnimals();
+            this.map.subtractEnergy();
+            this.map.moveAll();
+            Thread.sleep(30);
         }
-
-        for (Vector2d v : map.getGrassMap().keySet()) {
-            this.cells[v.x][v.y].setStyle("-fx-background-color: #66ff33;");
         }
-
-
-        this.map.subtractEnergy();
-        this.map.removeDeadAnimals();
-        this.map.addGrass();
-
-
-        }
-
-
 
 
 
@@ -145,9 +133,6 @@ public class Grid extends Pane {
 //    }
 
 
-    /**
-     * Add cell to array and to the UI.
-     */
     public void add(Cell cell, int column, int row) {
 
         cells[row][column] = cell;
@@ -170,9 +155,6 @@ public class Grid extends Pane {
         return cells[row][column];
     }
 
-    /**
-     * Unhighlight all cells
-     */
     public void unhighlight() {
         for( int row=0; row < rows; row++) {
             for( int col=0; col < columns; col++) {

@@ -6,22 +6,20 @@ import javafx.stage.Stage;
 
 public class Controller {
 
-    private boolean keyIsPressed;
+    public boolean keyIsPressed = true;
 
     @FXML
-    public void startSimulation1(ActionEvent actionEvent){
-
-        if(this.keyIsPressed) {
-            this.keyIsPressed = false;
+    public void startSimulation1(ActionEvent actionEvent) {
+        if(keyIsPressed){
+            keyIsPressed= false;
         }
-        else {
-            this.keyIsPressed = true;
+        else{
+            keyIsPressed = true;
         }
-        System.out.println(this.keyIsPressed);
-
     }
 
-    }
+
+}
 
 
 

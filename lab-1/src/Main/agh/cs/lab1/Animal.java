@@ -49,13 +49,11 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
     }
 
     public void subtract(int moveCost){
-        this.energy -=moveCost;
+        this.energy = this.energy - moveCost;
     }
 
     public void rotate() {
         int numOfRotation = genes.returnRandomGen();
-        System.out.println(numOfRotation+" "+this.energy);
-
 
         for (int i = 0; i < numOfRotation; i++) {
             this.move(MoveDirection.RIGHT);
@@ -66,8 +64,8 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
 
     public Animal copulation(Animal anotherAnimal, Vector2d childPos){
         int childEnergy = (int) (0.25 * this.energy) + (int) (0.25 * anotherAnimal.energy);
-        anotherAnimal.subtract((int) -(0.25 * anotherAnimal.energy));
-        this.subtract((int) -(this.energy * 0.25));
+        anotherAnimal.subtract((int) (0.25 * anotherAnimal.energy));
+        this.subtract((int) (this.energy * 0.25));
         return new Animal(map, childPos , childEnergy, this.genes ,anotherAnimal.genes);
     }
 
