@@ -1,7 +1,5 @@
 package agh.cs.lab1;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -10,8 +8,6 @@ import javafx.scene.input.PickResult;
 import java.util.LinkedList;
 
 public class MouseGestures {
-
-    boolean showHoverCursor = false;
 
     IWorldMap map;
 
@@ -22,9 +18,6 @@ public class MouseGestures {
     public void makePaintable( Node node) {
 
         node.setOnMousePressed( onMousePressedEventHandler);
-        node.setOnDragDetected( onDragDetectedEventHandler);
-        node.setOnMouseDragEntered(onMouseDragEnteredEventHandler);
-
     }
 
     EventHandler<MouseEvent> onMousePressedEventHandler = event -> {
@@ -44,52 +37,7 @@ public class MouseGestures {
             }}}
 
 
-        if( event.isPrimaryButtonDown()) {
-            cell.highlight();
-        } else if( event.isSecondaryButtonDown()) {
-            cell.unhighlight();
-        }
     };
 
-    EventHandler<MouseEvent> onMouseDraggedEventHandler = event -> {
-
-        PickResult pickResult = event.getPickResult();
-        Node node = pickResult.getIntersectedNode();
-
-        if( node instanceof Cell) {
-
-            Cell cell = (Cell) node;
-
-            if( event.isPrimaryButtonDown()) {
-                cell.highlight();
-            } else if( event.isSecondaryButtonDown()) {
-                cell.unhighlight();
-            }
-
-        }
-
-    };
-
-    EventHandler<MouseEvent> onMouseReleasedEventHandler = event -> {
-    };
-
-    EventHandler<MouseEvent> onDragDetectedEventHandler = event -> {
-
-        Cell cell = (Cell) event.getSource();
-        cell.startFullDrag();
-
-    };
-
-    EventHandler<MouseEvent> onMouseDragEnteredEventHandler = event -> {
-
-        Cell cell = (Cell) event.getSource();
-
-        if( event.isPrimaryButtonDown()) {
-            cell.highlight();
-        } else if( event.isSecondaryButtonDown()) {
-            cell.unhighlight();
-        }
-
-    };
 
 }

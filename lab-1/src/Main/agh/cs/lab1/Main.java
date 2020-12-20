@@ -38,6 +38,8 @@ public class Main extends Application {
             StackPane root2 = (StackPane) root.lookup("#simulation2window");
             Pane animalStatistics1 = (Pane) root.lookup("#staticStatistic1");
             Pane animalStatistics2 = (Pane) root.lookup("#staticStatistic2");
+            Pane animal1statistic = (Pane) root.lookup("#animal1statistic");
+            Pane animal2statistic = (Pane) root.lookup("#animal2statistic");
 
             Text animalsinformation = new Text();
             animalsinformation.setX(2);

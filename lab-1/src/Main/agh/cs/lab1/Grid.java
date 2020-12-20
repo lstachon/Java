@@ -104,11 +104,11 @@ public class Grid extends Pane {
             if (animalList != null) {
                 for(Animal a: animalList){
                     if(animalList.size()>1){
-                        this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #a84e32;");
+                        this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #EB00FA;");
                     }
                     if(animalList.size()==1){
                         if(a.getEnergy()>0.5*this.map.getMaxEnergy()){
-                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #ffb366;");
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FFC300;");
                         }
                         if(a.getEnergy()<0.5*this.map.getMaxEnergy() && a.getEnergy()>0.25*this.map.getMaxEnergy()){
                             this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FF5733;");

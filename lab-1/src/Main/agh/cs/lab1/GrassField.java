@@ -67,16 +67,25 @@ public class GrassField extends AbstractWorldMap {
             }
         }
 
+        int junglexMin = (int)((super.width-super.width*super.jungleratio)/2);
+        int junglesizex = (int) (super.width*super.jungleratio);
+        int junglexMax= (int) junglexMin+junglesizex +1;
+
+        int jungleyMin = (int)((super.height-super.height*super.jungleratio)/2);
+        int junglesizey = (int) (super.height*super.jungleratio);
+        int jungleyMax= (int) junglexMin+junglesizey+1;
 
         if(flag) {
-            Vector2d v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
+            Vector2d v = new Vector2d((int) (Math.random() * (junglexMax - junglexMin) + junglexMin), (int) (Math.random() * (jungleyMax - jungleyMin) + jungleyMin));
             while (isOccupied(v) || isInJungle(v)==false) {
-                v = new Vector2d((int) (Math.random() * super.getWidth()), (int) (Math.random() * super.getHeight()));
+                v = new Vector2d((int) (Math.random() * (junglexMax - junglexMin) + junglexMin), (int) (Math.random() * (jungleyMax - jungleyMin) + jungleyMin));
             }
             Grass g = new Grass(v);
             grassMap.put(g.getPosition(), g);
             this.grass_amount++;
         }
+
+
 
     }
 
@@ -102,15 +111,17 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public boolean isInJungle(Vector2d v){
-        int jungle = (int) Math.sqrt((super.width*super.height)*super.jungleratio);
-        int junglexMin = (int)((super.width-jungle)/2);
-        int junglexMax= (int)((super.width-jungle)/2+jungle);
 
-        int jungleyMin = (int)((super.height-jungle)/2);
-        int jungleyMax= (int)((super.height-jungle)/2+jungle);
+        int junglexMin = (int)((super.width-super.width*super.jungleratio)/2);
+        int junglesizex = (int) (super.width*super.jungleratio);
+        int junglexMax= (int) junglexMin+junglesizex;
 
-        if(v.x>junglexMin && v.x<junglexMax){
-            if(v.y>jungleyMin && v.y<jungleyMax){
+        int jungleyMin = (int)((super.height-super.height*super.jungleratio)/2);
+        int junglesizey = (int) (super.height*super.jungleratio);
+        int jungleyMax= (int) junglexMin+junglesizey;
+
+        if(v.x>junglexMin-1 && v.x<junglexMax){
+            if(v.y>jungleyMin-1 && v.y<jungleyMax){
                 return true;
             }
         }
