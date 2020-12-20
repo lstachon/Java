@@ -79,12 +79,15 @@ public class Genes {
         printGens();
     }
 
-    public void printGens(){
-        System.out.println("GENS:");
+    public String printGens(){
+       String result="\n";
         for(int i=0; i<gensNumber; i++){
-            System.out.print(this.genes[i]+" ");
+            if(i%8==0 && i!=0){
+                result+="\n";
+            }
+            result+=this.genes[i]+" ";
         }
-        System.out.println();
+        return result;
     }
 
     public void checkIfGenesCorrect(){

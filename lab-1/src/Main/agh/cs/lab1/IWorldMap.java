@@ -54,6 +54,7 @@ public interface IWorldMap {
 
     void changego();
 
+
     String mapParametersToString();
     /**
      * Move the animal on the map according to the provided move directions. Every

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -99,14 +100,28 @@ public class Grid extends Pane {
             }
 
 
-            for (Vector2d key : map.getAnimalsMap().keySet()) {
-                if (map.getAnimalsMap().get(key).size() == 1) {
-                    this.cells[key.x][key.y].setStyle("-fx-background-color: #ffb366;");
-                } else {
-                    this.cells[key.x][key.y].setStyle("-fx-background-color: #a84e32;");
-                }
+        for (LinkedList<Animal> animalList : this.map.getAnimalsMap().values()) {
+            if (animalList != null) {
+                for(Animal a: animalList){
+                    if(animalList.size()>1){
+                        this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #a84e32;");
+                    }
+                    if(animalList.size()==1){
+                        if(a.getEnergy()>0.5*this.map.getMaxEnergy()){
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #ffb366;");
+                        }
+                        if(a.getEnergy()<0.5*this.map.getMaxEnergy() && a.getEnergy()>0.25*this.map.getMaxEnergy()){
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FF5733;");
+                        }
+                        if(a.getEnergy()<0.25*this.map.getMaxEnergy()){
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #581845;");
+                        }
+                    }
 
+                }
             }
+
+        }
 
             this.map.nextDay();
 

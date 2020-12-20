@@ -15,7 +15,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
-public class simulation extends Application {
+public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -30,28 +30,25 @@ public class simulation extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, ParseException, InterruptedException {
 
-            Pane root = (Pane) FXMLLoader.load(simulation.class.getResource("simulation_view.fxml"));
+            Pane root = (Pane) FXMLLoader.load(Main.class.getResource("simulation_view.fxml"));
 
             Pane rootwindow = (Pane) root.lookup("#rootnode");
 
             StackPane root1 = (StackPane) root.lookup("#simulation1window");
             StackPane root2 = (StackPane) root.lookup("#simulation2window");
             Pane animalStatistics1 = (Pane) root.lookup("#staticStatistic1");
+            Pane animalStatistics2 = (Pane) root.lookup("#staticStatistic2");
 
-            String family = "Helvetica";
-            double size = 8;
+            Text animalsinformation = new Text();
+            animalsinformation.setX(2);
+            animalsinformation.setY(12);
+            animalStatistics1.getChildren().addAll(animalsinformation);
 
-            TextFlow textFlow = new TextFlow();
-            textFlow.setLayoutX(4);
-            textFlow.setLayoutY(4);
-            Text text1 = new Text("Most popular Gene: \n\n");
-            text1.setFont(Font.font(family, FontPosture.ITALIC, size));
+            Text animialsinformation2 = new Text();
+            animialsinformation2.setX(2);
+            animialsinformation2.setY(12);
+            animalStatistics2.getChildren().addAll(animialsinformation2);
 
-            textFlow.getChildren().addAll(text1);
-
-            Group group = new Group(textFlow);
-
-            animalStatistics1.getChildren().add(group);
 
             propertiesLoader properties = new propertiesLoader();
 
@@ -68,9 +65,11 @@ public class simulation extends Application {
             startstopSimulationButton ss = new startstopSimulationButton(map);
             Pane ssbutton = (Pane) root.lookup("#firstSimulationButton");
             ss.makePaintable(ssbutton);
+
              startstopSimulationButton ss2 = new startstopSimulationButton(map2);
             Pane ss2button = (Pane) root.lookup("#secondSimulationButton");
             ss2.makePaintable(ss2button);
+
 
             String btn = "Helvetica";
             double sizebutton1text = 10;
@@ -97,8 +96,10 @@ public class simulation extends Application {
         new Thread(()-> {
                 new AnimationTimer() {
                     public void handle(long currentNanoTime) {
+
                         try {
                             grid.nextday();
+                            animalsinformation.setText(map.mapParametersToString());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -113,8 +114,10 @@ public class simulation extends Application {
 
             new AnimationTimer() {
                 public void handle(long currentNanoTime) {
+
                     try {
                         grid2.nextday();
+                        animialsinformation2.setText(map2.mapParametersToString());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

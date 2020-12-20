@@ -7,8 +7,6 @@ import javafx.scene.input.PickResult;
 
 public class startstopSimulationButton {
 
-    boolean showHoverCursor = false;
-
     IWorldMap map;
 
     public startstopSimulationButton(IWorldMap map){
@@ -26,5 +24,6 @@ public class startstopSimulationButton {
         this.map.changego();
 
     };
+
 
 }

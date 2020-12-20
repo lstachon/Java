@@ -11,6 +11,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final int plantEnergy;
     final double jungleratio;
     private Genes mostPolupar;
+    private int sumDaysDeadAnimals;
+    private int deadAnimals;
 
     protected int day;
 
@@ -25,6 +27,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     protected LinkedList<Animal> animalGeneslist = new LinkedList<>();
 
+
+
     final MapVisualizer map;
 
     public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize) {
@@ -37,6 +41,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.jungleratio = junglesize;
         this.animalsAlive = 0;
         this.day = 0;
+        this.deadAnimals=0;
+        this.sumDaysDeadAnimals=0;
     }
 
 
@@ -52,7 +58,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         for (int i = 0; i < l.size(); i++) {
             Animal a = animalLinkedList.get(i);
             if (a.isDead()) {
+                this.sumDaysDeadAnimals += a.getDaysAlive();
                 this.animalsAlive--;
+                this.deadAnimals++;
                 removeAnimal(a, a.getPosition());
                 a.removeObserver(this);
                 animalLinkedList.remove(a);
@@ -80,6 +88,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         if (canMoveTo(newPosition)) {
             removeAnimal((Animal) b, oldPosition);
             addAnimal((Animal) b, newPosition);
+
         }
 
     }
@@ -205,17 +214,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
                 }
             }
         }
-
-        this.mostPolupar = g;
-//        if(max!=-1) {
-//            System.out.println("-------");
-//            System.out.println("tyle jest zwierzat z najczestszym genem " + max);
-//            g.printGens();
-//            System.out.println("-------");
-//        }
-//        else {
-//            System.out.println("zwierzeta umarly");
-//        }
+        if(max>0) {
+            this.mostPolupar = g;
+        }
 
     }
 
@@ -265,5 +266,31 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     return result;
     }
 
+    public int getAvrageLifefordead(){
+        if(this.deadAnimals!=0) {
+            int result = (int) this.sumDaysDeadAnimals / this.deadAnimals;
+            return result;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    public double getAvrageNumberOfChildren(){
+        double result =0;
+        for (LinkedList<Animal> animalList : animalsMap.values()) {
+            if (animalList != null) {
+                for (Animal a : animalList) {
+                    result += a.getNumberOfChildren();
+                }
+            }
+        }
+
+        result = Math.round(result/this.animalsAlive*100);
+        result /= 100;
+
+        return result;
+    }
 
 }
