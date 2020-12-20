@@ -4,18 +4,17 @@
 
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="rootnode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:derive(greenyellow,90%)" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.cs.lab1.Controller">
+<Pane fx:id="rootnode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="865.0" style="-fx-background-color:derive(greenyellow,90%)" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.cs.lab1.Controller">
    <children>
-      <StackPane fx:id="simulation1window" layoutX="14.0" layoutY="14.0" prefHeight="263.0" prefWidth="272.0" />
-      <StackPane fx:id="simulation2window" layoutX="332.0" layoutY="14.0" prefHeight="246.0" prefWidth="254.0" />
-      <Pane fx:id="staticStatistic2" layoutX="473.0" layoutY="294.0" prefHeight="92.0" prefWidth="113.0" style="-fx-background-color:derive(white,90%)" />
-      <Pane fx:id="animalstatistic1" layoutX="141.0" layoutY="312.0" prefHeight="69.0" prefWidth="72.0" style="-fx-background-color:derive(white,90%)" />
-      <Pane fx:id="staticStatistic1" layoutX="14.0" layoutY="302.0" prefHeight="84" prefWidth="105.0" style="-fx-background-color:derive(white,90%)"/>
-      <Pane fx:id="animal2statistic" layoutX="393.0" layoutY="312.0" prefHeight="69.0" prefWidth="66.0" style="-fx-background-color:derive(white,90%)" />
-      <Button fx:id="firstSimulationButton" layoutX="224.0" layoutY="319.0" mnemonicParsing="false" onAction="#startSimulation1" text="start/stop1" />
-      <Button fx:id="secondSimulationButton" layoutX="308.0" layoutY="319.0" mnemonicParsing="false" text="start/stop2" />
-      <Button fx:id="followAnimal1" layoutX="234.0" layoutY="359.0" mnemonicParsing="false" text="follow" />
-      <Button fx:id="followAnimal2" layoutX="320.0" layoutY="359.0" mnemonicParsing="false" text="follow" />
-
+      <StackPane fx:id="simulation1window" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="400.0" />
+      <StackPane fx:id="simulation2window" layoutX="450.0" layoutY="14.0" prefHeight="400.0" prefWidth="400.0" />
+      <Pane fx:id="staticStatistic2" layoutX="690.0" layoutY="430.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color:derive(white,90%)" />
+      <Pane fx:id="animalstatistic1" layoutX="175.0" layoutY="430.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color:derive(white,90%)" />
+      <Pane fx:id="staticStatistic1" layoutX="14.0" layoutY="430.0" prefHeight="150" prefWidth="150.0" style="-fx-background-color:derive(white,90%)"/>
+      <Pane fx:id="animal2statistic" layoutX="530.0" layoutY="430.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color:derive(white,90%)" />
+      <Pane fx:id="firstSimulationButton" layoutX="350.0" layoutY="470.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)"/>
+      <Pane fx:id="secondSimulationButton" layoutX="450.0" layoutY="470.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="firstMaptoFile" layoutX="350.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="secondMaptoFile" layoutX="450.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
    </children>
 </Pane>

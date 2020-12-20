@@ -139,7 +139,6 @@ public class Grid extends Pane {
         cell.setLayoutY(y);
         cell.setPrefWidth(w);
         cell.setPrefHeight(h);
-
         getChildren().add(cell);
 
     }

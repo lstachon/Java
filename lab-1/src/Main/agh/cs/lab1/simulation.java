@@ -1,41 +1,19 @@
 package agh.cs.lab1;
 
-import com.sun.jdi.LongValue;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.Group;
-import java.lang.Object;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.PickResult;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 import org.json.simple.parser.ParseException;
-import sun.java2d.CRenderer;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.rmi.server.ExportException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class simulation extends Application {
 
@@ -43,10 +21,10 @@ public class simulation extends Application {
         launch(args);
     }
 
-    double width = 250;
-    double height = 250;
-    double maxheight = 400;
-    double maxwidth = 600;
+    double width = 400;
+    double height = 400;
+    double maxheight = 600;
+    double maxwidth = 865;
 
 
     @Override
@@ -60,7 +38,6 @@ public class simulation extends Application {
             StackPane root2 = (StackPane) root.lookup("#simulation2window");
             Pane animalStatistics1 = (Pane) root.lookup("#staticStatistic1");
 
-
             String family = "Helvetica";
             double size = 8;
 
@@ -69,12 +46,8 @@ public class simulation extends Application {
             textFlow.setLayoutY(4);
             Text text1 = new Text("Most popular Gene: \n\n");
             text1.setFont(Font.font(family, FontPosture.ITALIC, size));
-            Text text2 = new Text("Animals ammount: \n\n");
-            text2.setFont(Font.font(family, FontPosture.ITALIC, size));
-            Text text3 = new Text(" Grass ammount: \n\n");
 
-            text3.setFont(Font.font(family, FontPosture.ITALIC, size));
-            textFlow.getChildren().addAll(text1, text2, text3);
+            textFlow.getChildren().addAll(text1);
 
             Group group = new Group(textFlow);
 
@@ -92,16 +65,38 @@ public class simulation extends Application {
 
              Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
 
-            Controller control = new Controller();
+            startstopSimulationButton ss = new startstopSimulationButton(map);
+            Pane ssbutton = (Pane) root.lookup("#firstSimulationButton");
+            ss.makePaintable(ssbutton);
+             startstopSimulationButton ss2 = new startstopSimulationButton(map2);
+            Pane ss2button = (Pane) root.lookup("#secondSimulationButton");
+            ss2.makePaintable(ss2button);
+
+            String btn = "Helvetica";
+            double sizebutton1text = 10;
+            TextFlow buttons = new TextFlow();
+            buttons.setLayoutX(6);
+            buttons.setLayoutY(6);
+            Text button1Text = new Text("Start/Stop 1");
+            button1Text.setFont(Font.font(btn, FontPosture.ITALIC, sizebutton1text));
+            buttons.getChildren().addAll(button1Text);
+            Group b1 = new Group(buttons);
+            ssbutton.getChildren().add(b1);
 
 
+            String btn2 = "Helvetica";
+            TextFlow buttons2 = new TextFlow();
+            buttons2.setLayoutX(6);
+            buttons2.setLayoutY(6);
+            Text button2Text = new Text("Start/Stop 2");
+            button2Text.setFont(Font.font(btn2, FontPosture.ITALIC, sizebutton1text));
+            buttons2.getChildren().addAll(button2Text);
+            Group b2 = new Group(buttons2);
+            ss2button.getChildren().add(b2);
 
         new Thread(()-> {
-
-
                 new AnimationTimer() {
                     public void handle(long currentNanoTime) {
-
                         try {
                             grid.nextday();
                         } catch (InterruptedException e) {

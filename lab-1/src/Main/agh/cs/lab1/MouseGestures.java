@@ -21,29 +21,6 @@ public class MouseGestures {
 
     public void makePaintable( Node node) {
 
-
-        // that's all there is needed for hovering, the other code is just for painting
-        if( showHoverCursor) {
-            node.hoverProperty().addListener(new ChangeListener<Boolean>(){
-
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-
-                    System.out.println( observable + ": " + newValue);
-
-                    if( newValue) {
-                        ((Cell) node).hoverHighlight();
-                    } else {
-                        ((Cell) node).hoverUnhighlight();
-                    }
-
-                    for( String s: node.getStyleClass())
-                        System.out.println( node + ": " + s);
-                }
-
-            });
-        }
-
         node.setOnMousePressed( onMousePressedEventHandler);
         node.setOnDragDetected( onDragDetectedEventHandler);
         node.setOnMouseDragEntered(onMouseDragEnteredEventHandler);
@@ -53,8 +30,6 @@ public class MouseGestures {
     EventHandler<MouseEvent> onMousePressedEventHandler = event -> {
 
         Cell cell = (Cell) event.getSource();
-
-        this.map.changego();
 
         System.out.println(cell.column+" "+cell.row);
 

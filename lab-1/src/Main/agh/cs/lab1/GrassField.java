@@ -17,6 +17,7 @@ public class GrassField extends AbstractWorldMap {
     private boolean go = true;
 
 
+
     public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize, int animalStart) {
         super(width, height, startEnergy,moveEnergy, plantEnergy, junglesize);
         this.grass_amount = 0;
@@ -140,7 +141,7 @@ public class GrassField extends AbstractWorldMap {
                 }
             }
         }
-        System.out.println(super.getAnimalsAlive());
+        System.out.println(super.day);
     }
 
 
@@ -303,6 +304,8 @@ public class GrassField extends AbstractWorldMap {
     }
 
 
+
+
     @Override
     public void nextDay(){
         if(this.go){
@@ -312,6 +315,8 @@ public class GrassField extends AbstractWorldMap {
             removeDeadAnimals();
             subtractEnergy();
             moveAll();
+            super.mostPopularGene();
+            super.day++;
         }
 
     }
@@ -325,5 +330,18 @@ public class GrassField extends AbstractWorldMap {
             this.go = true;
         }
     }
+
+    @Override
+    public String mapParametersToString(){
+        String result ="";
+        result+="Day: "+super.day+"\n";
+        result+="Animals alive: "+super.getAnimalsAlive()+"\n";
+        result+="Grass amount "+getGrass_amount()+"\n";
+        result+="Most popular genes: "+super.getMostPoluparGene()+"\n";
+        result+="Avrage animals energy"+super.avrageAnimalEnergy()+"\n";
+
+        return result;
+    }
+
 
 }

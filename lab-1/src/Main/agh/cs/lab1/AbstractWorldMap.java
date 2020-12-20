@@ -12,7 +12,10 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final double jungleratio;
     private Genes mostPolupar;
 
+    protected int day;
+
     private int animalsAlive;
+
 
     final HashMap<Vector2d, LinkedList<Animal>> animalsMap = new HashMap<>();
 
@@ -33,45 +36,14 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.plantEnergy = plantEnergy;
         this.jungleratio = junglesize;
         this.animalsAlive = 0;
+        this.day = 0;
     }
 
-    public LinkedList<Animal> getAnimals() {
-        return animalLinkedList;
-    }
 
     @Override
     public HashMap<Vector2d, LinkedList<Animal>> getAnimalsMap() {
         return this.animalsMap;
     }
-
-    public void mostPopularGene(){
-        Genes g= null;
-        int max = -1;
-        for (LinkedList<Animal> animalGeneslist : genesCount.values()) {
-            if (animalGeneslist != null) {
-                if (animalGeneslist.size() > max) {
-                   max = animalGeneslist.size();
-                   g = animalGeneslist.getFirst().getGenes();
-                }
-            }
-        }
-        this.mostPolupar = g;
-//        if(max!=-1) {
-//            System.out.println("-------");
-//            System.out.println("tyle jest zwierzat z najczestszym genem " + max);
-//            g.printGens();
-//            System.out.println("-------");
-//        }
-//        else {
-//            System.out.println("zwierzeta umarly");
-//        }
-
-    }
-
-    public Genes getMostPoluparGene(){
-        return mostPolupar;
-    }
-
 
 
     @Override
@@ -92,8 +64,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     public int getMaxEnergy(){
         return this.startEnergy;
     }
-
-
 
     @Override
     public int getWidth(){
@@ -145,49 +115,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
 
-    private boolean addAnimal(Animal a, Vector2d p) {
-        if (a == null) return false;
-        LinkedList<Animal> l = animalsMap.get(p);
-
-        if (l == null) {
-            LinkedList<Animal> tmp = new LinkedList<>();
-            tmp.add(a);
-            animalsMap.put(p, tmp);
-
-        } else if (l != null) {
-            l.add(a);
-        }
-
-        LinkedList<Animal> g = genesCount.get(a.getGenes());
-
-        if (g == null) {
-            LinkedList<Animal> tmp = new LinkedList<>();
-            tmp.add(a);
-            genesCount.put(a.getGenes(), tmp);
-
-        } else if (g != null) {
-            g.add(a);
-        }
-
-        return true;
-
-    }
-
-    private boolean removeAnimal(Animal a, Vector2d position2) { ;
-        LinkedList<Animal> l = animalsMap.get(position2);
-            l.remove(a);
-            if (l.size() == 0) {
-                animalsMap.remove(position2);
-            }
-
-        LinkedList<Animal> g = genesCount.get(a.getGenes());
-        g.remove(a);
-        if (g.size() == 0) {
-            genesCount.remove(a.getGenes());
-        }
-        return true;
-    }
-
     @Override
     public boolean isOccupied(Vector2d position) {
         if (animalsMap.containsKey(position)) {
@@ -231,6 +158,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     }
 
+
     @Override
     public Animal getStrongest(LinkedList<Animal> animalList){
         animalList.sort(Collections.reverseOrder());
@@ -242,6 +170,100 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return a.getPosition();
     }
 
+
+    public LinkedList<Animal> getAnimals() {
+        return animalLinkedList;
+    }
+
+    private boolean removeAnimal(Animal a, Vector2d position2) { ;
+        LinkedList<Animal> l = animalsMap.get(position2);
+        l.remove(a);
+        if (l.size() == 0) {
+            animalsMap.remove(position2);
+        }
+
+        LinkedList<Animal> g = genesCount.get(a.getGenes());
+        g.remove(a);
+        if (g.size() == 0) {
+            genesCount.remove(a.getGenes());
+        }
+        return true;
+    }
+
+    public Genes getMostPoluparGene(){
+        return mostPolupar;
+    }
+
+    public void mostPopularGene(){
+        Genes g= null;
+        int max = -1;
+        for (LinkedList<Animal> animalGeneslist : genesCount.values()) {
+            if (animalGeneslist != null) {
+                if (animalGeneslist.size() > max) {
+                    max = animalGeneslist.size();
+                    g = animalGeneslist.getFirst().getGenes();
+                }
+            }
+        }
+
+        this.mostPolupar = g;
+//        if(max!=-1) {
+//            System.out.println("-------");
+//            System.out.println("tyle jest zwierzat z najczestszym genem " + max);
+//            g.printGens();
+//            System.out.println("-------");
+//        }
+//        else {
+//            System.out.println("zwierzeta umarly");
+//        }
+
+    }
+
+
+    private boolean addAnimal(Animal a, Vector2d p) {
+        if (a == null) return false;
+        LinkedList<Animal> l = animalsMap.get(p);
+
+        if (l == null) {
+            LinkedList<Animal> tmp = new LinkedList<>();
+            tmp.add(a);
+            animalsMap.put(p, tmp);
+
+        } else if (l != null) {
+            l.add(a);
+        }
+
+        LinkedList<Animal> g = genesCount.get(a.getGenes());
+
+        if (g == null) {
+            LinkedList<Animal> tmp = new LinkedList<>();
+            tmp.add(a);
+            genesCount.put(a.getGenes(), tmp);
+
+        } else if (g != null) {
+            g.add(a);
+        }
+
+        return true;
+
+    }
+
+    public double avrageAnimalEnergy(){
+        double result =0;
+        for (LinkedList<Animal> animalList : animalsMap.values()) {
+            if (animalList != null) {
+                for(Animal a: animalList){
+                    result += a.getEnergy();
+
+                }
+            }
+
+        }
+
+        result = Math.round(result/this.animalsAlive*100);
+        result /= 100;
+    return result;
+    }
 
 
 }

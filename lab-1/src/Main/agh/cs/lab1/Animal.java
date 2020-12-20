@@ -1,6 +1,7 @@
 package agh.cs.lab1;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Animal implements  Animal_Interface, Comparable<Animal>{
@@ -11,6 +12,8 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
     private Genes genes;
     private List<IPositionChangeObserver> observers;
     private int energy;
+    private int daysAlive;
+    private LinkedList<Animal> chidren = new LinkedList<>();
 
 
     public Animal(IWorldMap map, Vector2d initialPosition, int energy) {
@@ -24,6 +27,7 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
         this.position = initialPosition;
         genes = new Genes();
         this.energy= energy;
+        this.daysAlive = 0;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition, int energy, Genes g1, Genes g2) {
@@ -38,6 +42,7 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
         this.position = initialPosition;
         genes = new Genes(g1,g2);
         this.energy= energy;
+        this.daysAlive = 0;
     }
 
 
@@ -59,14 +64,44 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
             this.move(MoveDirection.RIGHT);
         }
         this.move(MoveDirection.FORWARD);
+        this.daysAlive++;
+    }
 
+    public int getDaysAlive(){
+        return this.daysAlive;
+    }
+
+    public int getNumberOfChildren(){
+        return this.chidren.size();
+    }
+
+    public int getNumberofProgeny(){
+        int result =0;
+        return result;
+    }
+
+//    private int progenyreq(){}
+
+    public int getDeathDay(){
+        if(this.isDead()){
+            return this.daysAlive;
+        }
+        return 0;
+    }
+
+    public String AnimalInfo(){
+        String result ="";
+        return result;
     }
 
     public Animal copulation(Animal anotherAnimal, Vector2d childPos){
         int childEnergy = (int) (0.25 * this.energy) + (int) (0.25 * anotherAnimal.energy);
         anotherAnimal.subtract((int) (0.25 * anotherAnimal.energy));
         this.subtract((int) (this.energy * 0.25));
-        return new Animal(map, childPos , childEnergy, this.genes ,anotherAnimal.genes);
+        Animal baby = new Animal(map, childPos , childEnergy, this.genes ,anotherAnimal.genes);
+        this.chidren.add(baby);
+        anotherAnimal.chidren.add(baby);
+        return baby;
     }
 
     public int getEnergy(){
