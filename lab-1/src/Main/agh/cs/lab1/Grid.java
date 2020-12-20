@@ -16,7 +16,6 @@ public class Grid extends Pane {
     double height;
     IWorldMap map;
     double jungleRatio;
-    private Controller controller;
 
 
     Cell[][] cells;
@@ -29,7 +28,6 @@ public class Grid extends Pane {
         this.height = height;
         this.map = map;
         this.jungleRatio = jungleRatio;
-        this.controller = new Controller();
         cells = new Cell[rows][columns];
 
         MouseGestures mg = new MouseGestures(this.map);
@@ -84,7 +82,6 @@ public class Grid extends Pane {
     }
 
     public void nextday() throws InterruptedException {
-        if(controller.keyIsPressed) {
             for (int row = 0; row < rows; row++) {
                 for (int column = 0; column < columns; column++) {
 
@@ -111,14 +108,10 @@ public class Grid extends Pane {
 
             }
 
-            this.map.addGrass();
-            this.map.copulation();
-            this.map.eatGrass();
-            this.map.removeDeadAnimals();
-            this.map.subtractEnergy();
-            this.map.moveAll();
+            this.map.nextDay();
+
             Thread.sleep(30);
-        }
+
         }
 
 

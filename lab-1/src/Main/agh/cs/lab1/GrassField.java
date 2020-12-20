@@ -14,6 +14,7 @@ public class GrassField extends AbstractWorldMap {
 
     protected LinkedList<Grass> grassList = new LinkedList<>();
 
+    private boolean go = true;
 
 
     public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize, int animalStart) {
@@ -302,6 +303,27 @@ public class GrassField extends AbstractWorldMap {
     }
 
 
+    @Override
+    public void nextDay(){
+        if(this.go){
+            addGrass();
+            copulation();
+            eatGrass();
+            removeDeadAnimals();
+            subtractEnergy();
+            moveAll();
+        }
 
+    }
+
+    @Override
+    public void changego(){
+        if(go){
+            this.go=false;
+        }
+        else{
+            this.go = true;
+        }
+    }
 
 }

@@ -92,12 +92,16 @@ public class simulation extends Application {
 
              Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
 
+            Controller control = new Controller();
 
 
 
         new Thread(()-> {
+
+
                 new AnimationTimer() {
                     public void handle(long currentNanoTime) {
+
                         try {
                             grid.nextday();
                         } catch (InterruptedException e) {

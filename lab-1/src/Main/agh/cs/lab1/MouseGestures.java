@@ -54,6 +54,8 @@ public class MouseGestures {
 
         Cell cell = (Cell) event.getSource();
 
+        this.map.changego();
+
         System.out.println(cell.column+" "+cell.row);
 
         Object object = map.objectAt(new Vector2d(cell.row,cell.column));
