@@ -3,6 +3,7 @@ package agh.cs.lab1;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Animal implements  Animal_Interface, Comparable<Animal>{
 
@@ -15,7 +16,6 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
     private int daysAlive;
     private LinkedList<Animal> chidren = new LinkedList<>();
     private int Deathday=0;
-
 
     public Animal(IWorldMap map, Vector2d initialPosition, int energy) {
         int randomRotation = (int) (Math.random() * (8));
@@ -46,7 +46,6 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
         this.daysAlive = 0;
     }
 
-
     public void addEnergy(int energy, int maxEnergy){
         this.energy += energy;
         if(this.energy>maxEnergy){
@@ -76,24 +75,24 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
         return this.chidren.size();
     }
 
-    public int getNumberofProgeny(){
-        int result =0;
-        result = this.childrenSize(this);
-        return result;
-    }
-
-    private int childrenSize(Animal animal){
-        if (animal.chidren.size()==0){
-            return 0;
-        }
-        else{
-            int sum = 0;
-            for(Animal a: animal.chidren) {
-                sum += childrenSize(a) + 1;
-            }
-            return sum;
-        }
-    }
+//    public int getNumberofProgeny(){
+//        int result =0;
+//        result = this.childrenSize(this);
+//        return result;
+//    }
+//
+//    private int childrenSize(Animal animal){
+//        if (animal.chidren.size()==0){
+//            return 0;
+//        }
+//        else{
+//            int sum = 0;
+//            for(Animal a: animal.chidren) {
+//                sum += childrenSize(a) + 1;
+//            }
+//            return sum;
+//        }
+//    }
 
     public int getDeathDay(){
         return this.Deathday;

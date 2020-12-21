@@ -3,6 +3,7 @@ package agh.cs.lab1;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 
@@ -86,7 +87,6 @@ public class GrassField extends AbstractWorldMap {
 
     }
 
-
     @Override
     public void moveAll(){
 
@@ -125,7 +125,6 @@ public class GrassField extends AbstractWorldMap {
         return false;
     }
 
-
     @Override
     public int getGrass_amount(){
         return this.grass_amount;
@@ -135,7 +134,6 @@ public class GrassField extends AbstractWorldMap {
     public HashMap<Vector2d, Grass> getGrassMap(){
         return this.grassMap;
     }
-
 
     @Override
     public void subtractEnergy(){
@@ -152,7 +150,6 @@ public class GrassField extends AbstractWorldMap {
         }
     }
 
-
     @Override
     public int getMaxEnergy(){
         return super.getMaxEnergy();
@@ -160,20 +157,20 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public void eatGrass(){
-        LinkedList<Grass> toRemoveAfterEating = new LinkedList<>();
+        LinkedList<Grass> removeAfterEating = new LinkedList<>();
 
-        for (Grass food : grassMap.values()) {
-            LinkedList<Animal> l = animalsMap.get(food.getPosition());
-            if (l != null) {
-                if (l.size() > 0) {
+        for (Grass grass : grassMap.values()) {
+            LinkedList<Animal> animalList = animalsMap.get(grass.getPosition());
+            if (animalList != null) {
+                if (animalList.size() > 0) {
                     LinkedList<Animal> strongestAnimals = new LinkedList<>();
                     int max = 0;
-                    for (Animal a : l) {
+                    for (Animal a : animalList) {
                         if(a.getEnergy()>max){
                             max = a.getEnergy();
                         }
                     }
-                    for(Animal a:l){
+                    for(Animal a:animalList){
                         if(a.getEnergy() == max){
                             strongestAnimals.add(a);
                         }
@@ -181,13 +178,13 @@ public class GrassField extends AbstractWorldMap {
                     for(Animal a:strongestAnimals){
                         a.addEnergy(super.plantEnergy / strongestAnimals.size(), super.startEnergy);
                     }
-                    toRemoveAfterEating.add(food);
+                    removeAfterEating.add(grass);
                     grass_amount--;
                 }
             }
         }
 
-        for (Grass g : toRemoveAfterEating) {
+        for (Grass g : removeAfterEating) {
             grassMap.remove(g.getPosition());
             grassList.remove(g);
 
@@ -201,21 +198,9 @@ public class GrassField extends AbstractWorldMap {
         super.removeDeadAnimals();
     }
 
-
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Object b) {
         super.positionChanged(oldPosition, newPosition, b);
-    }
-
-    @Override
-    public Vector2d getUpperRight() {
-        return new Vector2d(super.getWidth()-1, super.getHeight()-1);
-    }
-
-    @Override
-    public Vector2d getLowerLeft() {
-       Vector2d v = new Vector2d(0,0);
-        return v;
     }
 
     @Override
@@ -323,7 +308,6 @@ public class GrassField extends AbstractWorldMap {
     public void followAnimal(Vector2d v){
         LinkedList<Animal> list = animalsMap.get(v);
         animalFollow = super.getStrongest(list);
-
     }
 
     @Override
@@ -334,7 +318,8 @@ public class GrassField extends AbstractWorldMap {
             result += "Genom: " + animalFollow.getGenes().printGens() + "\n";
             result += "Children number: " + animalFollow.getNumberOfChildren() + "\n";
             result += "Died: " + animalFollow.getDeathDay() + "\n";
-            result += "Number of Progeny: "+animalFollow.getNumberofProgeny()+"\n";
+            //odkomentuj jesli chcesz potomlów, spowolni to aplikacje
+//            result += "Number of Progeny: "+animalFollow.getNumberofProgeny()+"\n";
             return result;
         }
         return "Pick Animal";

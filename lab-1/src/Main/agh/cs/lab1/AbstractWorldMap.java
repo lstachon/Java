@@ -37,7 +37,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     protected LinkedList<Animal> animalGeneslist = new LinkedList<>();
 
-
     public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize) {
         this.width = width;
         this.height = height;
@@ -51,12 +50,10 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.sumDaysDeadAnimals=0;
     }
 
-
     @Override
     public HashMap<Vector2d, LinkedList<Animal>> getAnimalsMap() {
         return this.animalsMap;
     }
-
 
     @Override
     public void removeDeadAnimals() {
@@ -104,9 +101,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return true;
     }
 
-    protected abstract Vector2d getLowerLeft();
-
-    protected abstract Vector2d getUpperRight();
 
     public int getAnimalsAlive(){
         return this.animalsAlive;
@@ -121,9 +115,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.animalsAlive++;
         return true;
     }
-
-
-
 
     @Override
     public boolean isOccupied(Vector2d position) {
@@ -168,7 +159,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     }
 
-
     @Override
     public Animal getStrongest(LinkedList<Animal> animalList){
         animalList.sort(Collections.reverseOrder());
@@ -179,7 +169,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     public Vector2d childPosition(Animal a){
         return a.getPosition();
     }
-
 
     public LinkedList<Animal> getAnimals() {
         return animalLinkedList;
@@ -227,7 +216,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
 
     }
-
 
     private boolean addAnimal(Animal a, Vector2d p) {
         if (a == null) return false;

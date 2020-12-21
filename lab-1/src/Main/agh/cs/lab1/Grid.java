@@ -131,8 +131,8 @@ public class Grid extends Pane {
 
             this.map.nextDay();
 
-            Thread.sleep(30);
 
+//            Thread.sleep(30);
 
         }
 

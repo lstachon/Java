@@ -2,13 +2,8 @@ package agh.cs.lab1;
 
 import java.io.*;
 
-import com.google.gson.JsonParser;
-
 import org.json.simple.*;
 
-
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -50,6 +45,7 @@ public class propertiesLoader {
     public int getPlantEnergy() {
         return plantEnergy;
     }
+
     public int getMoveEnergy(){
          return moveEnergy;
     }
