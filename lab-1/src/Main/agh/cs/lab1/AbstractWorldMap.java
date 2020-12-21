@@ -10,14 +10,20 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final int moveEnergy;
     final int plantEnergy;
     final double jungleratio;
-    private Genes mostPolupar;
+    private Genes currentMostPolupar;
+    protected Genes mostPoluparGenomfAllTime;
+    private int mostPopularGenomofAllTimeNumber=0;
     private int sumDaysDeadAnimals;
     private int deadAnimals;
-
     protected int day;
-
+    protected Animal animalFollow;
     private int animalsAlive;
 
+    protected int aimalsAliveSum=0;
+    protected  int grassAmmountSum =0;
+    protected double avrageEnergySum=0;
+    protected int avrageLifeForDead=0;
+    protected double avrageChildrenNumber=0;
 
     final HashMap<Vector2d, LinkedList<Animal>> animalsMap = new HashMap<>();
 
@@ -57,7 +63,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         LinkedList<Animal> l = getAnimals();
         for (int i = 0; i < l.size(); i++) {
             Animal a = animalLinkedList.get(i);
-            if (a.isDead()) {
+            if (a.isDead(this.day)) {
                 this.sumDaysDeadAnimals += a.getDaysAlive();
                 this.animalsAlive--;
                 this.deadAnimals++;
@@ -200,7 +206,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     public Genes getMostPoluparGene(){
-        return mostPolupar;
+        return currentMostPolupar;
     }
 
     public void mostPopularGene(){
@@ -215,8 +221,13 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
             }
         }
         if(max>0) {
-            this.mostPolupar = g;
+            this.currentMostPolupar = g;
         }
+        if(max > mostPopularGenomofAllTimeNumber){
+            this.mostPoluparGenomfAllTime = g;
+            mostPopularGenomofAllTimeNumber = max;
+        }
+
 
     }
 

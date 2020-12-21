@@ -14,7 +14,9 @@
       <Pane fx:id="animal2statistic" layoutX="530.0" layoutY="430.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color:derive(white,90%)" />
       <Pane fx:id="firstSimulationButton" layoutX="350.0" layoutY="470.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)"/>
       <Pane fx:id="secondSimulationButton" layoutX="450.0" layoutY="470.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
-      <Pane fx:id="firstMaptoFile" layoutX="350.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
-      <Pane fx:id="secondMaptoFile" layoutX="450.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="firstMapToFile" layoutX="350.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="secondMapToFile" layoutX="450.0" layoutY="500.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="showGenoms1" layoutX="350.0" layoutY="530.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
+      <Pane fx:id="showGenoms2" layoutX="450.0" layoutY="530.0" prefHeight="20.0" prefWidth="66.0" style="-fx-background-color:derive(black,90%)" />
    </children>
 </Pane>

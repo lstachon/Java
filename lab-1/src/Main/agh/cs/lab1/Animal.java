@@ -14,6 +14,7 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
     private int energy;
     private int daysAlive;
     private LinkedList<Animal> chidren = new LinkedList<>();
+    private int Deathday=0;
 
 
     public Animal(IWorldMap map, Vector2d initialPosition, int energy) {
@@ -83,10 +84,7 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
 //    private int progenyreq(){}
 
     public int getDeathDay(){
-        if(this.isDead()){
-            return this.daysAlive;
-        }
-        return 0;
+        return this.Deathday;
     }
 
     public String AnimalInfo(){
@@ -108,10 +106,11 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
         return this.energy;
     }
 
-    public boolean isDead(){
+    public boolean isDead(int currentday){
         if(this.energy >0){
             return false;
         }
+        this.Deathday =currentday;
         return true;
     }
 

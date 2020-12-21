@@ -17,7 +17,6 @@ public class GrassField extends AbstractWorldMap {
     private boolean go = true;
 
 
-
     public GrassField( int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize, int animalStart) {
         super(width, height, startEnergy,moveEnergy, plantEnergy, junglesize);
         this.grass_amount = 0;
@@ -84,8 +83,6 @@ public class GrassField extends AbstractWorldMap {
             grassMap.put(g.getPosition(), g);
             this.grass_amount++;
         }
-
-
 
     }
 
@@ -314,6 +311,31 @@ public class GrassField extends AbstractWorldMap {
         return childpos;
     }
 
+    @Override
+    public boolean isAnimalFollowed(){
+        if(isAnimalFollowed()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void followAnimal(Vector2d v){
+        LinkedList<Animal> list = animalsMap.get(v);
+        animalFollow = super.getStrongest(list);
+    }
+
+    @Override
+    public String followedAnimalParameters(){
+        if(animalFollow!=null) {
+            String result = "";
+            result += "Genom: " + animalFollow.getGenes().printGens() + "\n";
+            result += "Children number: " + animalFollow.getNumberOfChildren() + "\n";
+            result += "Died: " + animalFollow.getDeathDay() + "\n";
+            return result;
+        }
+        return "Pick Animal";
+    }
 
     @Override
     public void nextDay(){
@@ -351,9 +373,26 @@ public class GrassField extends AbstractWorldMap {
         result+="Avrage life for dead: "+super.getAvrageLifefordead()+"\n";
         result+="Avrage child number: "+super.getAvrageNumberOfChildren();
 
+        aimalsAliveSum  +=  super.getAnimalsAlive();
+        grassAmmountSum +=  getGrass_amount();
+        avrageEnergySum += super.avrageAnimalEnergy();
+        avrageLifeForDead += super.getAvrageLifefordead();
+        avrageChildrenNumber += super.getAvrageNumberOfChildren();
+
         return result;
     }
 
+    @Override
+    public String toFile(){
+        String result = "";
+        result+="avrage animals alive: "+(int)aimalsAliveSum/super.day+"\n";
+        result+="avrage grass ammount: "+(int)grassAmmountSum/super.day+"\n";
+        result+="most popular Genome: "+mostPoluparGenomfAllTime.printGens()+"\n";
+        result+="avrage animals energy: "+avrageEnergySum/super.day+"\n";
+        result+="avrage life for dead animals: "+avrageLifeForDead/super.day+"\n";
+        result+="avrage children number: "+avrageChildrenNumber/super.day+"\n";
+        return result;
 
+    }
 
 }

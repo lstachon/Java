@@ -33,6 +33,7 @@ public class MouseGestures {
             if(object instanceof LinkedList){
                 if(((LinkedList<?>) object).getFirst() instanceof Animal){
                 Animal a = map.getStrongest((LinkedList<Animal>) object);
+                map.followAnimal(new Vector2d(cell.row, cell.column));
                 System.out.println(a);
             }}}
 

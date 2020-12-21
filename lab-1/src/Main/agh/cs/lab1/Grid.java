@@ -1,12 +1,6 @@
 package agh.cs.lab1;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Grid extends Pane {
@@ -130,17 +124,6 @@ public class Grid extends Pane {
         }
 
 
-
-//    public void update() {
-//        if (food.getPoint().equals(snake.getHead())) {
-//            snake.extend();
-//            food.setPoint(getRandomPoint());
-//        } else {
-//            snake.move();
-//        }
-//    }
-
-
     public void add(Cell cell, int column, int row) {
 
         cells[row][column] = cell;
@@ -158,15 +141,5 @@ public class Grid extends Pane {
 
     }
 
-    public Cell getCell(int column, int row) {
-        return cells[row][column];
-    }
 
-    public void unhighlight() {
-        for( int row=0; row < rows; row++) {
-            for( int col=0; col < columns; col++) {
-                cells[row][col].unhighlight();
-            }
-        }
-    }
 }

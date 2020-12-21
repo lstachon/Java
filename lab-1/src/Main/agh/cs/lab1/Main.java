@@ -40,6 +40,8 @@ public class Main extends Application {
             Pane animalStatistics2 = (Pane) root.lookup("#staticStatistic2");
             Pane animal1statistic = (Pane) root.lookup("#animal1statistic");
             Pane animal2statistic = (Pane) root.lookup("#animal2statistic");
+            Pane firstMapToFile = (Pane) root.lookup("#firstMapToFile");
+            Pane secondMapToFile = (Pane) root.lookup("#secondMapToFile");
 
             Text animalsinformation = new Text();
             animalsinformation.setX(2);
@@ -51,6 +53,15 @@ public class Main extends Application {
             animialsinformation2.setY(12);
             animalStatistics2.getChildren().addAll(animialsinformation2);
 
+            Text animalfollowmap1 = new Text();
+            animalfollowmap1.setX(2);
+            animalfollowmap1.setY(12);
+            animal1statistic.getChildren().addAll(animalfollowmap1);
+
+            Text animalfollowmap2 = new Text();
+            animalfollowmap2.setX(2);
+            animalfollowmap2.setY(12);
+            animal2statistic.getChildren().addAll(animalfollowmap2);
 
             propertiesLoader properties = new propertiesLoader();
 
@@ -68,7 +79,7 @@ public class Main extends Application {
             Pane ssbutton = (Pane) root.lookup("#firstSimulationButton");
             ss.makePaintable(ssbutton);
 
-             startstopSimulationButton ss2 = new startstopSimulationButton(map2);
+            startstopSimulationButton ss2 = new startstopSimulationButton(map2);
             Pane ss2button = (Pane) root.lookup("#secondSimulationButton");
             ss2.makePaintable(ss2button);
 
@@ -95,6 +106,20 @@ public class Main extends Application {
             Group b2 = new Group(buttons2);
             ss2button.getChildren().add(b2);
 
+            Text maptofile = new Text("to file 1");
+            maptofile.setX(12);
+            maptofile.setY(15);
+            firstMapToFile.getChildren().addAll(maptofile);
+            WriteButton tofile1 = new WriteButton(map);
+            tofile1.makePaintable(firstMapToFile);
+
+            Text map2tofild = new Text("to file 2");
+            map2tofild.setX(12);
+            map2tofild.setY(15);
+            secondMapToFile.getChildren().addAll(map2tofild);
+            WriteButton tofile2 = new WriteButton(map2);
+            tofile2.makePaintable(secondMapToFile);
+
         new Thread(()-> {
                 new AnimationTimer() {
                     public void handle(long currentNanoTime) {
@@ -102,6 +127,7 @@ public class Main extends Application {
                         try {
                             grid.nextday();
                             animalsinformation.setText(map.mapParametersToString());
+                            animalfollowmap1.setText(map.followedAnimalParameters());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -120,6 +146,7 @@ public class Main extends Application {
                     try {
                         grid2.nextday();
                         animialsinformation2.setText(map2.mapParametersToString());
+                        animalfollowmap2.setText(map2.followedAnimalParameters());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
