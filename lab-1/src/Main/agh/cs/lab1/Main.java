@@ -42,6 +42,8 @@ public class Main extends Application {
             Pane animal2statistic = (Pane) root.lookup("#animal2statistic");
             Pane firstMapToFile = (Pane) root.lookup("#firstMapToFile");
             Pane secondMapToFile = (Pane) root.lookup("#secondMapToFile");
+            Pane showGenoms1 = (Pane) root.lookup("#showGenoms1");
+            Pane showGenoms2 = (Pane) root.lookup("#showGenoms2");
 
             Text animalsinformation = new Text();
             animalsinformation.setX(2);
@@ -77,11 +79,11 @@ public class Main extends Application {
 
             startstopSimulationButton ss = new startstopSimulationButton(map);
             Pane ssbutton = (Pane) root.lookup("#firstSimulationButton");
-            ss.makePaintable(ssbutton);
+            ss.addEventHandler(ssbutton);
 
             startstopSimulationButton ss2 = new startstopSimulationButton(map2);
             Pane ss2button = (Pane) root.lookup("#secondSimulationButton");
-            ss2.makePaintable(ss2button);
+            ss2.addEventHandler(ss2button);
 
 
             String btn = "Helvetica";
@@ -119,6 +121,21 @@ public class Main extends Application {
             secondMapToFile.getChildren().addAll(map2tofild);
             WriteButton tofile2 = new WriteButton(map2);
             tofile2.makePaintable(secondMapToFile);
+
+
+            Text genometext1 = new Text("show where\nmost \npopular\ngenome");
+            genometext1.setX(2);
+            genometext1.setY(15);
+            showGenoms1.getChildren().addAll(genometext1);
+            HoverButton showG1 = new HoverButton(map);
+            showG1.addEventHandler(showGenoms1);
+
+            Text genometext2 = new Text("show where\nmost \npopular\ngenome");
+            genometext2.setX(2);
+            genometext2.setY(15);
+            showGenoms2.getChildren().addAll(genometext2);
+            HoverButton showG2 = new HoverButton(map2);
+            showG2.addEventHandler(showGenoms2);
 
         new Thread(()-> {
                 new AnimationTimer() {

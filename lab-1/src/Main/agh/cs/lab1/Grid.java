@@ -36,7 +36,7 @@ public class Grid extends Pane {
                 if (map.isInJungle(new Vector2d(row,column))){
                     cell.setStyle("-fx-background-color: #009933;");
                 }
-                mg.makePaintable(cell);
+                mg.addEventHandler(cell);
 
                 this.add(cell, column, row);
             }
@@ -52,7 +52,7 @@ public class Grid extends Pane {
                 if(object != null) {
                     if (object instanceof LinkedList) {
                         if (((LinkedList<?>) object).getFirst() instanceof Animal) {
-                            this.cells[row][column].setStyle("-fx-background-color: #ffb366;");
+                            this.cells[row][column].setStyle("-fx-background-color: #FFC300;");
                         }
                     }
                 }
@@ -94,32 +94,45 @@ public class Grid extends Pane {
             }
 
 
-        for (LinkedList<Animal> animalList : this.map.getAnimalsMap().values()) {
-            if (animalList != null) {
-                for(Animal a: animalList){
-                    if(animalList.size()>1){
-                        this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #EB00FA;");
-                    }
-                    if(animalList.size()==1){
-                        if(a.getEnergy()>0.5*this.map.getMaxEnergy()){
-                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FFC300;");
+            for (LinkedList<Animal> animalList : this.map.getAnimalsMap().values()) {
+                if (animalList != null) {
+                    for (Animal a : animalList) {
+                        if (animalList.size() > 1) {
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #EB00FA;");
                         }
-                        if(a.getEnergy()<0.5*this.map.getMaxEnergy() && a.getEnergy()>0.25*this.map.getMaxEnergy()){
-                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FF5733;");
+                        if (animalList.size() == 1) {
+                            if (a.getEnergy() > 0.5 * this.map.getMaxEnergy()) {
+                                this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FFC300;");
+                            }
+                            if (a.getEnergy() < 0.5 * this.map.getMaxEnergy() && a.getEnergy() > 0.25 * this.map.getMaxEnergy()) {
+                                this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #FF5733;");
+                            }
+                            if (a.getEnergy() < 0.25 * this.map.getMaxEnergy()) {
+                                this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #581845;");
+                            }
                         }
-                        if(a.getEnergy()<0.25*this.map.getMaxEnergy()){
-                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color: #581845;");
-                        }
-                    }
 
+                    }
                 }
+
             }
 
+        if(this.map.getHighlight()) {
+            for (LinkedList<Animal> animalList : this.map.getAnimalsMap().values()) {
+                if (animalList != null) {
+                    for (Animal a : animalList) {
+                        if (a.getGenes().equals(this.map.getMostPoluparGene())) {
+                            this.cells[a.getPosition().x][a.getPosition().y].setStyle("-fx-background-color:#32D0FF;");
+                        }
+                    }
+                }
+            }
         }
 
             this.map.nextDay();
 
             Thread.sleep(30);
+
 
         }
 

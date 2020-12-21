@@ -11,6 +11,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final int plantEnergy;
     final double jungleratio;
     private Genes currentMostPolupar;
+    protected int currentMostPopularGenenumber;
     protected Genes mostPoluparGenomfAllTime;
     private int mostPopularGenomofAllTimeNumber=0;
     private int sumDaysDeadAnimals;
@@ -25,6 +26,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected int avrageLifeForDead=0;
     protected double avrageChildrenNumber=0;
 
+    protected boolean highlight = false;
+
+
     final HashMap<Vector2d, LinkedList<Animal>> animalsMap = new HashMap<>();
 
     protected LinkedList<Animal> animalLinkedList = new LinkedList<>();
@@ -34,11 +38,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected LinkedList<Animal> animalGeneslist = new LinkedList<>();
 
 
-
-    final MapVisualizer map;
-
     public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize) {
-        this.map = new MapVisualizer(this);
         this.width = width;
         this.height = height;
         this.startEnergy = startEnergy;
@@ -104,13 +104,6 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return true;
     }
 
-    @Override
-    public String toString() {
-        Vector2d lowerLeft = getLowerLeft();
-        Vector2d upperRight = getUpperRight();
-        return map.draw(lowerLeft, upperRight);
-    }
-
     protected abstract Vector2d getLowerLeft();
 
     protected abstract Vector2d getUpperRight();
@@ -128,6 +121,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.animalsAlive++;
         return true;
     }
+
+
 
 
     @Override
@@ -205,6 +200,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return true;
     }
 
+    @Override
     public Genes getMostPoluparGene(){
         return currentMostPolupar;
     }
@@ -221,6 +217,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
             }
         }
         if(max>0) {
+            currentMostPopularGenenumber = max;
             this.currentMostPolupar = g;
         }
         if(max > mostPopularGenomofAllTimeNumber){

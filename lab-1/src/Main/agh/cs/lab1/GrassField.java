@@ -323,15 +323,18 @@ public class GrassField extends AbstractWorldMap {
     public void followAnimal(Vector2d v){
         LinkedList<Animal> list = animalsMap.get(v);
         animalFollow = super.getStrongest(list);
+
     }
 
     @Override
     public String followedAnimalParameters(){
         if(animalFollow!=null) {
+
             String result = "";
             result += "Genom: " + animalFollow.getGenes().printGens() + "\n";
             result += "Children number: " + animalFollow.getNumberOfChildren() + "\n";
             result += "Died: " + animalFollow.getDeathDay() + "\n";
+            result += "Number of Progeny: "+animalFollow.getNumberofProgeny()+"\n";
             return result;
         }
         return "Pick Animal";
@@ -348,6 +351,12 @@ public class GrassField extends AbstractWorldMap {
             moveAll();
             super.mostPopularGene();
             super.day++;
+
+            aimalsAliveSum  +=  super.getAnimalsAlive();
+            grassAmmountSum +=  getGrass_amount();
+            avrageEnergySum += super.avrageAnimalEnergy();
+            avrageLifeForDead += super.getAvrageLifefordead();
+            avrageChildrenNumber += super.getAvrageNumberOfChildren();
         }
 
     }
@@ -363,6 +372,21 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
+    public boolean getHighlight(){
+        return this.highlight;
+    }
+
+    @Override
+    public void setHighlight(){
+        if(highlight){
+            highlight= false;
+        }
+        else{
+            highlight = true;
+        }
+    }
+
+    @Override
     public String mapParametersToString(){
         String result ="";
         result+="Day: "+super.day+"\n";
@@ -372,12 +396,6 @@ public class GrassField extends AbstractWorldMap {
         result+="Avrage animals energy"+super.avrageAnimalEnergy()+"\n";
         result+="Avrage life for dead: "+super.getAvrageLifefordead()+"\n";
         result+="Avrage child number: "+super.getAvrageNumberOfChildren();
-
-        aimalsAliveSum  +=  super.getAnimalsAlive();
-        grassAmmountSum +=  getGrass_amount();
-        avrageEnergySum += super.avrageAnimalEnergy();
-        avrageLifeForDead += super.getAvrageLifefordead();
-        avrageChildrenNumber += super.getAvrageNumberOfChildren();
 
         return result;
     }

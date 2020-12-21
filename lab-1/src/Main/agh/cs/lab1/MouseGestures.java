@@ -15,7 +15,7 @@ public class MouseGestures {
         this.map = map;
     }
 
-    public void makePaintable( Node node) {
+    public void addEventHandler(Node node) {
 
         node.setOnMousePressed( onMousePressedEventHandler);
     }
@@ -24,7 +24,6 @@ public class MouseGestures {
 
         Cell cell = (Cell) event.getSource();
 
-        System.out.println(cell.column+" "+cell.row);
 
         Object object = map.objectAt(new Vector2d(cell.row,cell.column));
 
@@ -34,7 +33,6 @@ public class MouseGestures {
                 if(((LinkedList<?>) object).getFirst() instanceof Animal){
                 Animal a = map.getStrongest((LinkedList<Animal>) object);
                 map.followAnimal(new Vector2d(cell.row, cell.column));
-                System.out.println(a);
             }}}
 
 

@@ -78,10 +78,22 @@ public class Animal implements  Animal_Interface, Comparable<Animal>{
 
     public int getNumberofProgeny(){
         int result =0;
+        result = this.childrenSize(this);
         return result;
     }
 
-//    private int progenyreq(){}
+    private int childrenSize(Animal animal){
+        if (animal.chidren.size()==0){
+            return 0;
+        }
+        else{
+            int sum = 0;
+            for(Animal a: animal.chidren) {
+                sum += childrenSize(a) + 1;
+            }
+            return sum;
+        }
+    }
 
     public int getDeathDay(){
         return this.Deathday;
