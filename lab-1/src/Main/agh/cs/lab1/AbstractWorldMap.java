@@ -4,38 +4,36 @@ import java.util.*;
 
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
+
     final int width;
     final int height;
     final int startEnergy;
     final int moveEnergy;
     final int plantEnergy;
-    final double jungleratio;
-    private Genes currentMostPolupar;
-    protected int currentMostPopularGenenumber;
-    protected Genes mostPoluparGenomfAllTime;
-    private int mostPopularGenomofAllTimeNumber=0;
-    private int sumDaysDeadAnimals;
-    private int deadAnimals;
-    protected int day;
-    protected Animal animalFollow;
-    private int animalsAlive;
-
-    protected int aimalsAliveSum=0;
-    protected  int grassAmmountSum =0;
-    protected double avrageEnergySum=0;
-    protected int avrageLifeForDead=0;
-    protected double avrageChildrenNumber=0;
-
-    protected boolean highlight = false;
-
-
+    final double jungleRatio;
     final HashMap<Vector2d, LinkedList<Animal>> animalsMap = new HashMap<>();
-
-    protected LinkedList<Animal> animalLinkedList = new LinkedList<>();
-
     final HashMap<Genes, LinkedList<Animal>> genesCount = new HashMap<>();
 
+    protected int day;
+    protected Animal animalFollow;
+    protected int currentMostPopularGenenumber;
+    protected Genes mostPoluparGenomAllTime;
+    protected int aimalsAliveSum = 0;
+    protected int grassAmountSum = 0;
+    protected double averageEnergySum = 0;
+    protected int averageLifeForDead = 0;
+    protected double averageChildrenNumber = 0;
+    protected boolean highlight = false;
+    protected LinkedList<Animal> animalLinkedList = new LinkedList<>();
     protected LinkedList<Animal> animalGeneslist = new LinkedList<>();
+
+    private Genes currentMostPolupar;
+    private int mostPopularGenomofAllTimeNumber = 0;
+    private int sumDaysDeadAnimals;
+    private int deadAnimals;
+    private int animalsAlive;
+
+
 
     public AbstractWorldMap(int width, int height, int startEnergy, int moveEnergy, int plantEnergy, double junglesize) {
         this.width = width;
@@ -43,11 +41,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.startEnergy = startEnergy;
         this.moveEnergy = moveEnergy;
         this.plantEnergy = plantEnergy;
-        this.jungleratio = junglesize;
+        this.jungleRatio = junglesize;
         this.animalsAlive = 0;
         this.day = 0;
-        this.deadAnimals=0;
-        this.sumDaysDeadAnimals=0;
+        this.deadAnimals = 0;
+        this.sumDaysDeadAnimals = 0;
     }
 
     @Override
@@ -72,17 +70,17 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     @Override
-    public int getMaxEnergy(){
+    public int getMaxEnergy() {
         return this.startEnergy;
     }
 
     @Override
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
     }
 
     @Override
-    public int getHeight(){
+    public int getHeight() {
         return this.height;
     }
 
@@ -102,7 +100,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
 
-    public int getAnimalsAlive(){
+    public int getAnimalsAlive() {
         return this.animalsAlive;
     }
 
@@ -142,8 +140,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
                     animalList.sort(Collections.reverseOrder());
                     Animal mother = animalList.get(0);
                     Animal anotherMother = animalList.get(1);
-                    if (mother.getEnergy() > 0.5*this.startEnergy)
-                        if (anotherMother.getEnergy() > 0.5*this.startEnergy) {
+                    if (mother.getEnergy() > 0.5 * this.startEnergy)
+                        if (anotherMother.getEnergy() > 0.5 * this.startEnergy) {
                             Vector2d childPos = mother.map.childPosition(mother);
                             Animal child = mother.copulation(anotherMother, childPos);
                             childrenToAdd.add(child);
@@ -153,20 +151,20 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
             }
         }
 
-        for(Animal a:childrenToAdd){
+        for (Animal a : childrenToAdd) {
             place(a);
         }
 
     }
 
     @Override
-    public Animal getStrongest(LinkedList<Animal> animalList){
+    public Animal getStrongest(LinkedList<Animal> animalList) {
         animalList.sort(Collections.reverseOrder());
         return animalList.getFirst();
     }
 
     @Override
-    public Vector2d childPosition(Animal a){
+    public Vector2d childPosition(Animal a) {
         return a.getPosition();
     }
 
@@ -174,7 +172,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         return animalLinkedList;
     }
 
-    private boolean removeAnimal(Animal a, Vector2d position2) { ;
+    private boolean removeAnimal(Animal a, Vector2d position2) {
+        ;
         LinkedList<Animal> l = animalsMap.get(position2);
         l.remove(a);
         if (l.size() == 0) {
@@ -190,12 +189,12 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     @Override
-    public Genes getMostPoluparGene(){
+    public Genes getMostPoluparGene() {
         return currentMostPolupar;
     }
 
-    public void mostPopularGene(){
-        Genes g= null;
+    public void mostPopularGene() {
+        Genes g = null;
         int max = -1;
         for (LinkedList<Animal> animalGeneslist : genesCount.values()) {
             if (animalGeneslist != null) {
@@ -205,12 +204,12 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
                 }
             }
         }
-        if(max>0) {
+        if (max > 0) {
             currentMostPopularGenenumber = max;
             this.currentMostPolupar = g;
         }
-        if(max > mostPopularGenomofAllTimeNumber){
-            this.mostPoluparGenomfAllTime = g;
+        if (max > mostPopularGenomofAllTimeNumber) {
+            this.mostPoluparGenomAllTime = g;
             mostPopularGenomofAllTimeNumber = max;
         }
 
@@ -245,11 +244,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     }
 
-    public double avrageAnimalEnergy(){
-        double result =0;
+    public double avrageAnimalEnergy() {
+        double result = 0;
         for (LinkedList<Animal> animalList : animalsMap.values()) {
             if (animalList != null) {
-                for(Animal a: animalList){
+                for (Animal a : animalList) {
                     result += a.getEnergy();
 
                 }
@@ -257,24 +256,23 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
         }
 
-        result = Math.round(result/this.animalsAlive*100);
+        result = Math.round(result / this.animalsAlive * 100);
         result /= 100;
-    return result;
+        return result;
     }
 
-    public int getAvrageLifefordead(){
-        if(this.deadAnimals!=0) {
+    public int getAvrageLifefordead() {
+        if (this.deadAnimals != 0) {
             int result = (int) this.sumDaysDeadAnimals / this.deadAnimals;
             return result;
-        }
-        else{
+        } else {
             return 0;
         }
 
     }
 
-    public double getAvrageNumberOfChildren(){
-        double result =0;
+    public double getAvrageNumberOfChildren() {
+        double result = 0;
         for (LinkedList<Animal> animalList : animalsMap.values()) {
             if (animalList != null) {
                 for (Animal a : animalList) {
@@ -283,7 +281,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
             }
         }
 
-        result = Math.round(result/this.animalsAlive*100);
+        result = Math.round(result / this.animalsAlive * 100);
         result /= 100;
 
         return result;

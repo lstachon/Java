@@ -32,14 +32,14 @@ public class Main extends Application {
 
             Pane root = (Pane) FXMLLoader.load(Main.class.getResource("simulation_view.fxml"));
 
-            Pane rootwindow = (Pane) root.lookup("#rootnode");
+            Pane rootWindow = (Pane) root.lookup("#rootnode");
 
-            StackPane root1 = (StackPane) root.lookup("#simulation1window");
-            StackPane root2 = (StackPane) root.lookup("#simulation2window");
+            StackPane firstMapPane = (StackPane) root.lookup("#simulation1window");
+            StackPane secondMapPane = (StackPane) root.lookup("#simulation2window");
             Pane animalStatistics1 = (Pane) root.lookup("#staticStatistic1");
             Pane animalStatistics2 = (Pane) root.lookup("#staticStatistic2");
-            Pane animal1statistic = (Pane) root.lookup("#animal1statistic");
-            Pane animal2statistic = (Pane) root.lookup("#animal2statistic");
+            Pane animal1Statistic = (Pane) root.lookup("#animal1Statistic");
+            Pane animal2Statistic = (Pane) root.lookup("#animal2Statistic");
             Pane firstMapToFile = (Pane) root.lookup("#firstMapToFile");
             Pane secondMapToFile = (Pane) root.lookup("#secondMapToFile");
             Pane showGenoms1 = (Pane) root.lookup("#showGenoms1");
@@ -58,12 +58,12 @@ public class Main extends Application {
             Text animalfollowmap1 = new Text();
             animalfollowmap1.setX(2);
             animalfollowmap1.setY(12);
-            animal1statistic.getChildren().addAll(animalfollowmap1);
+            animal1Statistic.getChildren().addAll(animalfollowmap1);
 
             Text animalfollowmap2 = new Text();
             animalfollowmap2.setX(2);
             animalfollowmap2.setY(12);
-            animal2statistic.getChildren().addAll(animalfollowmap2);
+            animal2Statistic.getChildren().addAll(animalfollowmap2);
 
             propertiesLoader properties = new propertiesLoader();
 
@@ -75,16 +75,15 @@ public class Main extends Application {
 
             Grid grid2 = new Grid(properties.getWidth(), properties.getHeight(), width, height, map2, properties.getJungleRatio());
 
-             Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
+            Grid grid = new Grid(properties.getWidth(), properties.getHeight(), width, height, map, properties.getJungleRatio());
 
-            startstopSimulationButton ss = new startstopSimulationButton(map);
-            Pane ssbutton = (Pane) root.lookup("#firstSimulationButton");
-            ss.addEventHandler(ssbutton);
+            startstopSimulationButton startStop = new startstopSimulationButton(map);
+            Pane startStopButton1 = (Pane) root.lookup("#firstSimulationButton");
+            startStop.addEventHandler(startStopButton1);
 
-            startstopSimulationButton ss2 = new startstopSimulationButton(map2);
-            Pane ss2button = (Pane) root.lookup("#secondSimulationButton");
-            ss2.addEventHandler(ss2button);
-
+            startstopSimulationButton startStop2 = new startstopSimulationButton(map2);
+            Pane startStopButton2 = (Pane) root.lookup("#secondSimulationButton");
+            startStop2.addEventHandler(startStopButton2);
 
             String btn = "Helvetica";
             double sizebutton1text = 10;
@@ -95,7 +94,7 @@ public class Main extends Application {
             button1Text.setFont(Font.font(btn, FontPosture.ITALIC, sizebutton1text));
             buttons.getChildren().addAll(button1Text);
             Group b1 = new Group(buttons);
-            ssbutton.getChildren().add(b1);
+            startStopButton1.getChildren().add(b1);
 
 
             String btn2 = "Helvetica";
@@ -106,7 +105,7 @@ public class Main extends Application {
             button2Text.setFont(Font.font(btn2, FontPosture.ITALIC, sizebutton1text));
             buttons2.getChildren().addAll(button2Text);
             Group b2 = new Group(buttons2);
-            ss2button.getChildren().add(b2);
+            startStopButton2.getChildren().add(b2);
 
             Text maptofile = new Text("to file 1");
             maptofile.setX(12);
@@ -140,56 +139,35 @@ public class Main extends Application {
         new Thread(()-> {
                 new AnimationTimer() {
                     public void handle(long currentNanoTime) {
-
-                        try {
-                            grid.nextday();
-                            animalsinformation.setText(map.mapParametersToString());
-                            animalfollowmap1.setText(map.followedAnimalParameters());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
+                        grid.nextDay();
+                        animalsinformation.setText(map.mapParametersToString());
+                        animalfollowmap1.setText(map.followedAnimalParameters());
                     }
-
                 }.start();
-
         }).start();
+
+        Thread.sleep(30);
 
         new Thread(()-> {
 
             new AnimationTimer() {
                 public void handle(long currentNanoTime) {
-
-                    try {
-                        grid2.nextday();
-                        animialsinformation2.setText(map2.mapParametersToString());
-                        animalfollowmap2.setText(map2.followedAnimalParameters());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-
+                    grid2.nextDay();
+                    animialsinformation2.setText(map2.mapParametersToString());
+                    animalfollowmap2.setText(map2.followedAnimalParameters());
                 }
-
             }.start();
-
         }).start();
 
+        firstMapPane.getChildren().addAll(grid);
+        secondMapPane.getChildren().addAll(grid2);
 
-        root1.getChildren().addAll(grid);
-        root2.getChildren().addAll(grid2);
+        Scene scene = new Scene(rootWindow, maxwidth, maxheight);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        primaryStage.setScene(scene);
 
-
-            Scene scene = new Scene(rootwindow, maxwidth, maxheight);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setScene(scene);
-
-            primaryStage.show();
-
-
+        primaryStage.show();
     }
-
-
 }
 
 

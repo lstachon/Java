@@ -3,7 +3,6 @@ package agh.cs.lab1;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 
@@ -67,12 +66,12 @@ public class GrassField extends AbstractWorldMap {
             }
         }
 
-        int junglexMin = (int)((super.width-super.width*super.jungleratio)/2);
-        int junglesizex = (int) (super.width*super.jungleratio);
+        int junglexMin = (int)((super.width-super.width*super.jungleRatio)/2);
+        int junglesizex = (int) (super.width*super.jungleRatio);
         int junglexMax= (int) junglexMin+junglesizex +1;
 
-        int jungleyMin = (int)((super.height-super.height*super.jungleratio)/2);
-        int junglesizey = (int) (super.height*super.jungleratio);
+        int jungleyMin = (int)((super.height-super.height*super.jungleRatio)/2);
+        int junglesizey = (int) (super.height*super.jungleRatio);
         int jungleyMax= (int) junglexMin+junglesizey+1;
 
         if(flag) {
@@ -90,10 +89,9 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public void moveAll(){
 
-        ArrayList<LinkedList> linkedsuperlist = new ArrayList<LinkedList>(super.getAnimalsMap().values());
+        ArrayList<LinkedList> temporaryList = new ArrayList<LinkedList>(super.getAnimalsMap().values());
 
-
-        for (LinkedList<Animal> animalList : linkedsuperlist) {
+        for (LinkedList<Animal> animalList : temporaryList) {
             if (animalList != null) {
                 ArrayList<Animal> animalArrayList = new ArrayList<Animal>(animalList);
                 for(Animal a: animalArrayList){
@@ -109,12 +107,12 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public boolean isInJungle(Vector2d v){
 
-        int junglexMin = (int)((super.width-super.width*super.jungleratio)/2);
-        int junglesizex = (int) (super.width*super.jungleratio);
+        int junglexMin = (int)((super.width-super.width*super.jungleRatio)/2);
+        int junglesizex = (int) (super.width*super.jungleRatio);
         int junglexMax= (int) junglexMin+junglesizex;
 
-        int jungleyMin = (int)((super.height-super.height*super.jungleratio)/2);
-        int junglesizey = (int) (super.height*super.jungleratio);
+        int jungleyMin = (int)((super.height-super.height*super.jungleRatio)/2);
+        int junglesizey = (int) (super.height*super.jungleRatio);
         int jungleyMax= (int) junglexMin+junglesizey;
 
         if(v.x>junglexMin-1 && v.x<junglexMax){
@@ -338,10 +336,10 @@ public class GrassField extends AbstractWorldMap {
             super.day++;
 
             aimalsAliveSum  +=  super.getAnimalsAlive();
-            grassAmmountSum +=  getGrass_amount();
-            avrageEnergySum += super.avrageAnimalEnergy();
-            avrageLifeForDead += super.getAvrageLifefordead();
-            avrageChildrenNumber += super.getAvrageNumberOfChildren();
+            grassAmountSum +=  getGrass_amount();
+            averageEnergySum += super.avrageAnimalEnergy();
+            averageLifeForDead += super.getAvrageLifefordead();
+            averageChildrenNumber += super.getAvrageNumberOfChildren();
         }
 
     }
@@ -389,11 +387,11 @@ public class GrassField extends AbstractWorldMap {
     public String toFile(){
         String result = "";
         result+="avrage animals alive: "+(int)aimalsAliveSum/super.day+"\n";
-        result+="avrage grass ammount: "+(int)grassAmmountSum/super.day+"\n";
-        result+="most popular Genome: "+mostPoluparGenomfAllTime.printGens()+"\n";
-        result+="avrage animals energy: "+avrageEnergySum/super.day+"\n";
-        result+="avrage life for dead animals: "+avrageLifeForDead/super.day+"\n";
-        result+="avrage children number: "+avrageChildrenNumber/super.day+"\n";
+        result+="avrage grass ammount: "+(int) grassAmountSum /super.day+"\n";
+        result+="most popular Genome: "+ mostPoluparGenomAllTime.printGens()+"\n";
+        result+="avrage animals energy: "+ averageEnergySum /super.day+"\n";
+        result+="avrage life for dead animals: "+ averageLifeForDead /super.day+"\n";
+        result+="avrage children number: "+ averageChildrenNumber /super.day+"\n";
         return result;
 
     }
