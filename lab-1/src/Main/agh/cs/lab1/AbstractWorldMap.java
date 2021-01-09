@@ -1,11 +1,11 @@
-package agh.cs.lab1;
-
+package agh.cs.lab1;    // przydałby się podział na pakiety
+// plik konfiguracyjny to nie źródło, tylko zasób, więc powinien być w katalogu resources, albo podobnym
 import java.util.*;
 
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
 
-    final int width;
+    final int width;    // modyfikator dostępu wybrany świadomie?
     final int height;
     final int startEnergy;
     final int moveEnergy;
@@ -15,8 +15,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     final HashMap<Genes, LinkedList<Animal>> genesCount = new HashMap<>();
 
     protected int day;
-    protected Animal animalFollow;
-    protected int currentMostPopularGenenumber;
+    protected Animal animalFollow;  // czy to na pewno zadanie dla mapy?
+    protected int currentMostPopularGenenumber; // j.w.
     protected Genes mostPoluparGenomAllTime;
     protected int aimalsAliveSum = 0;
     protected int grassAmountSum = 0;
@@ -27,7 +27,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected LinkedList<Animal> animalLinkedList = new LinkedList<>();
     protected LinkedList<Animal> animalGeneslist = new LinkedList<>();
 
-    private Genes currentMostPolupar;
+    private Genes currentMostPolupar;   // literówka
     private int mostPopularGenomofAllTimeNumber = 0;
     private int sumDaysDeadAnimals;
     private int deadAnimals;
@@ -70,7 +70,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     @Override
-    public int getMaxEnergy() {
+    public int getMaxEnergy() { // myląca nazwa
         return this.startEnergy;
     }
 
@@ -87,7 +87,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Object b) {
         if (canMoveTo(newPosition)) {
-            removeAnimal((Animal) b, oldPosition);
+            removeAnimal((Animal) b, oldPosition);  // ClassCastException
             addAnimal((Animal) b, newPosition);
 
         }
@@ -131,7 +131,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     }
 
     @Override
-    public void copulation() {
+    public void copulation() {  // polecam nazwy metod, które brzmią jak polecenia
         LinkedList<Animal> childrenToAdd = new LinkedList<>();
 
         for (LinkedList<Animal> animalList : animalsMap.values()) {

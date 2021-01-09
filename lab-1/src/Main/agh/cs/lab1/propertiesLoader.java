@@ -7,9 +7,9 @@ import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class propertiesLoader {
+public class propertiesLoader { // raczej PascalCase
 
-    final int width;
+    final int width;    // modyfikator dostępu wybrany świadomie?
     final int height;
     final int startEnergy;
     final int moveEnergy;

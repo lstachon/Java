@@ -3,7 +3,7 @@ package agh.cs.lab1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulationEngine{
+public class SimulationEngine{  // ta klasa właściwie nic nie robi, nie zasługuje na swoją nazwę
 
     private IWorldMap map;
     private List<Animal> animals = new ArrayList<>();
